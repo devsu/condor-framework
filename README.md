@@ -6,8 +6,9 @@ const GrpcServer = require('grpc-server');
 const app = new GrpcServer();
  
 class Greeter {
-  sayHello(call, callback) {
-    callback({'greeting': 'Hello ' + call.request.name });
+  async sayHello(call) {
+    let response = { 'greeting': 'Hello ' + call.request.name };
+    return Promise.resolve(response);
   }
 }
 
@@ -321,6 +322,16 @@ app.use(async function (call, callback) {
 });
 ```
 
-## Automatic CRUD methods
+## To think about:
 
-One of the most powerful features of this method is that you can 
+### ORM/ODM
+
+Should we integrate to [Waterline](http://waterlinejs.org/) or [Sequelize](http://docs.sequelizejs.com/en/v3/)? A persistence layer is needed in order to have an automatic methods generation of persistent models (like [loopback](https://loopback.io/) does)
+
+It looks like you can [use waterline from a raw node app](https://github.com/balderdashy/waterline/tree/master/example/raw), so I think we can integrate it, but not sure if it should be in this project.
+
+### Automatic CRUD services
+
+One of the most powerful features we want to implement is the ability to automatically generate the code for the common CRUD operations for a model, (similar to Loopback).
+
+Probably both things should live on their own projects. In any case, the code should be flexible enough to allow any of them via plugins.
