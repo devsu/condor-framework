@@ -2,6 +2,7 @@
 Minimalist framework for building GRPC services is Node JS. ES6. Status: Documentation draft.
 
 ```ecmascript 6
+
 const GrpcServer = require('grpc-server');
 const app = new GrpcServer();
  
@@ -14,6 +15,7 @@ class Greeter {
 
 app.registerServices('./protos/greeter.proto', 'myapp.Greeter', new Greeter());
 app.listen(3000);
+
 ```
 
 ## Installation
