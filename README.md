@@ -1,5 +1,5 @@
 # node-grpc-server
-Minimalist framework for building GRPC services is Node JS. ES6. In alpha now.
+Minimalist framework for building GRPC services is Node JS. ES6. Status: Documentation draft.
 
 ```ecmascript 6
 const GrpcServer = require('grpc-server');
