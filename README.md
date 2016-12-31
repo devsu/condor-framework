@@ -214,7 +214,7 @@ You can add custom middleware that is executed before the request is served. The
 ```js
 const app = new GrpcServer();
 const scope = 'myapp';
-app.use(scope, function(call, callback) {
+app.use(scope, function(call, response) {
   console.log('Request:', call.request);
   return Promise.resolve();
 });
@@ -273,15 +273,14 @@ app.use(function (call) {
 });
 ```
 
-#### Respond immediately and finish the callback chain
+#### Respond immediately and finish the middleware chain
 
-You can use callback to respond to the client immediately, and you can resolve with `false` to finish the callback chain.
+You can use the `response` argument to respond to the client immediately, and you can resolve with `false` to finish the middleware chain.
 
 ```js
 const Promise = require('bluebird');
-app.use('myapp.Greeter.sayHello', function (call, callback) {
-  let response = { 'a': 1 };
-  callback(null, response);
+app.use('myapp.Greeter.sayHello', function (call, response) {
+  response.send( {'a': 1} );
   return Promise.resolve(false);
 });
 ```
@@ -297,15 +296,14 @@ Promises and async/await are basically the same under the hood, but let's clarif
 const app = new GrpcServer();
 const Promise = require('bluebird');
 
-app.use(function (call, callback) {
+app.use(function (call, response) {
   
   if (call.request.desiredAction === 'Finish the chain, and reject the call with an error') {
     throw new Error('My error message', ErrorCode);
   }
   
   if (call.request.desiredAction === 'respond and finish middleware chain immediately') {
-    let response = { 'a': 1 };
-    callback(null, response); // respond to client
+    response.send( { 'a': 1 } ); // respond to client
     return Promise.resolve(false); // do not call next middleware
   }
   
@@ -322,15 +320,14 @@ app.use(function (call, callback) {
 ```js
 const app = new GrpcServer();
 
-app.use(async function (call, callback) {
+app.use(async function (call, response) {
   
   if (call.request.desiredAction === 'Finish the chain, and reject the call with an error') {
     throw new Error('My error message', ErrorCode);
   }
   
   if (call.request.desiredAction === 'respond and finish middleware chain immediately') {
-    let response = { 'a': 1 };
-    callback(null, response); // respond to client
+    response.send( { 'a': 1 } ); // respond to client
     return false; // do not call next middleware // TODO: I don't know if this works
   }
   
