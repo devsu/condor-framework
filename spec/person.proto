@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package testapp;
+
+service PersonService {
+  rpc List (Empty) returns (PeopleList) { }
+  rpc Insert (Person) returns (Person) { }
+  rpc Get (IdRequest) returns (Person) { }
+  rpc Delete (IdRequest) returns (Empty) { }
+  rpc InsertMultiple (stream Person) returns (Empty) { }
+  rpc Watch (Empty) returns (stream Person) { }
+  rpc Watch2 (stream IdRequest) returns (stream Person) { }
+}
+
+message Empty {}
+
+message IdRequest {
+  int32 id = 1;
+}
+
+message Person {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+}
+
+message PeopleList {
+  repeated Person people = 1;
+}

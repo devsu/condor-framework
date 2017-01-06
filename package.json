@@ -4,6 +4,7 @@
   "description": "Minimalist framework for building GRPC services in Node JS.",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint .",
     "test": "istanbul cover jasmine",
     "posttest": "npm run lint && nsp check && istanbul check-coverage"
   },
@@ -26,11 +27,16 @@
   },
   "homepage": "https://github.com/devsu/node-grpc-server#readme",
   "devDependencies": {
+    "eslint": "^3.13.0",
+    "eslint-config-devsu-node": "0.0.1",
     "istanbul": "^0.4.5",
     "jasmine": "^2.5.2",
-    "nsp": "^2.6.2"
+    "nsp": "^2.6.2",
+    "proxyquire": "^1.7.10"
   },
   "dependencies": {
-    "bluebird": "^3.4.7"
+    "bluebird": "^3.4.7",
+    "grpc": "^1.0.1",
+    "lodash": "^4.17.4"
   }
 }
