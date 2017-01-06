@@ -1,5 +1,6 @@
 # node-grpc-server
-Minimalist framework for building GRPC services is Node JS. ES6. 
+
+Minimalist framework for building GRPC services in Node JS.
 
 **Status**: Documentation draft, receiving feedback.
 
@@ -34,7 +35,6 @@ npm install grpc-server
 
 - [Server Authentication Support](#server-authentication-support)
 - [Middleware](#middleware) (not using interceptors for now, since [they are not available for node](https://github.com/grpc/grpc/issues/8394), but will use them when available)
-- [Other Possible Features](#other-possible-features)
 
 ## Quick start
 
@@ -275,15 +275,15 @@ app.use(function (call) {
 
 #### Respond immediately and finish the middleware chain
 
-You can use the `response` argument to respond to the client immediately, and you can resolve with `false` to finish the middleware chain.
+You can use the `send` method of the `response` argument to respond to the client immediately, and finish the middleware chain.
 
 ```js
 const Promise = require('bluebird');
 app.use('myapp.Greeter.sayHello', function (call, response) {
-  response.send( {'a': 1} );
-  return Promise.resolve(false);
+  return response.send( {'a': 1} );
 });
 ```
+
 #### Promises vs async/await syntax
 
 Promises and async/await are basically the same under the hood, but let's clarify how it would look if we use one or the other approach.
@@ -298,13 +298,12 @@ const Promise = require('bluebird');
 
 app.use(function (call, response) {
   
-  if (call.request.desiredAction === 'Finish the chain, and reject the call with an error') {
+  if (call.request.desiredAction === 'Reject the call with an error and finish the middleware chain') {
     throw new Error('My error message', ErrorCode);
   }
   
   if (call.request.desiredAction === 'respond and finish middleware chain immediately') {
-    response.send( { 'a': 1 } ); // respond to client
-    return Promise.resolve(false); // do not call next middleware
+    return response.send( { 'a': 1 } );
   }
   
   // execute something and continue to next middleware 
@@ -322,13 +321,12 @@ const app = new GrpcServer();
 
 app.use(async function (call, response) {
   
-  if (call.request.desiredAction === 'Finish the chain, and reject the call with an error') {
+  if (call.request.desiredAction === 'Reject the call with an error and finish the middleware chain') {
     throw new Error('My error message', ErrorCode);
   }
   
   if (call.request.desiredAction === 'respond and finish middleware chain immediately') {
-    response.send( { 'a': 1 } ); // respond to client
-    return false; // do not call next middleware // TODO: I don't know if this works
+    return response.send( { 'a': 1 } );
   }
   
   // just execute something and continue to next middleware 
@@ -336,16 +334,14 @@ app.use(async function (call, response) {
 });
 ```
 
-### Other possible features
+## More features
 
-#### ORM/ODM Integration
+If you want more features, probably you want to look [Cotopaxi](link-here), which is built on top of this module. 
 
-Should we integrate to [Waterline](http://waterlinejs.org/) or [Sequelize](http://docs.sequelizejs.com/en/v3/)? A persistence layer is needed in order to have an automatic methods generation of persistent models (like [loopback](https://loopback.io/) does)
+## Credits & License
 
-It looks like you can [use waterline from a raw node app](https://github.com/balderdashy/waterline/tree/master/example/raw), so I think we can integrate it, but not sure if it should be in this project.
+Developed by the gRPC & node experts at [Devsu](https://devsu.com).
 
-#### Automatic CRUD services
+Copyright 2017.
 
-One of the most powerful features of Loopback.JS is the ability to easily generate REST services for a model.
-
-Probably both things should live on their own projects. In any case, the code should be flexible enough to allow any of them via plugins?
+License: **MIT**.
