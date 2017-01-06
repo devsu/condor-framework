@@ -1,0 +1,36 @@
+{
+  "name": "grpc-server",
+  "version": "0.0.1",
+  "description": "Minimalist framework for building GRPC services in Node JS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "istanbul cover jasmine",
+    "posttest": "npm run lint && nsp check && istanbul check-coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devsu/node-grpc-server.git"
+  },
+  "keywords": [
+    "grpc",
+    "framework",
+    "web",
+    "microservice",
+    "server",
+    "express"
+  ],
+  "author": "César Salazar @ Devsu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/devsu/node-grpc-server/issues"
+  },
+  "homepage": "https://github.com/devsu/node-grpc-server#readme",
+  "devDependencies": {
+    "istanbul": "^0.4.5",
+    "jasmine": "^2.5.2",
+    "nsp": "^2.6.2"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.7"
+  }
+}

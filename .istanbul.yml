@@ -1,0 +1,24 @@
+instrumentation:
+    include-all-sources: true
+reporting:
+    reports:
+        - lcov
+        - teamcity
+        - text
+        - text-summary
+    watermarks:
+        statements: [60, 90]
+        lines: [60, 90]
+        functions: [60, 90]
+        branches: [60, 90]
+check:
+    global:
+        statements: 99
+        lines: 99
+        branches: 99
+        functions: 99
+    each:
+        statements: 99
+        lines: 99
+        branches: 99
+        functions: 99
