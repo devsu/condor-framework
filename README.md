@@ -13,9 +13,9 @@ Minimalist framework for building GRPC services in Node JS.
 
 **Status**: Documentation draft, receiving feedback.
 
-## How to use
+## Proposals of how to use
 
-### Option 1: "express-like" style
+### Option 1: "express-like" style (initial approach)
 
 ```js
 const GrpcServer = require('grpc-server');
@@ -40,7 +40,7 @@ app.use('myapp', function(call) {
 app.listen(options);
 ```
 
-### Option 2: "Immutable Class" style
+### Option 2: "Immutable Class" style (inspired on conversation with Yonel)
 
 ```js
 const condor = require('condor-framework'); // Le puse este nombre temporal, habría que ver como mismo se llama
