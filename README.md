@@ -13,66 +13,7 @@ Minimalist framework for building GRPC services in Node JS.
 
 **Status**: Documentation draft, receiving feedback.
 
-## Proposals of how to use
-
-### Option 1a: "express-like" style (initial approach)
-
-```js
-const Condor = require('condor-framework');
-const app = new Condor();
- 
-class Greeter {
-  sayHello(call) {
-    let response = { 'greeting': 'Hello ' + call.request.name };
-    return Promise.resolve(response);
-  }
-}
-
-// add service
-app.registerService('./protos/greeter.proto', 'myapp.Greeter', new Greeter());
-app.registerService('./protos/greeter.proto', 'myapp.OtherService', new OtherService());
-
-// add middleware
-app.use('myapp', function(call) {
-  console.log('Request:', call.request);
-});
-
-// start listening
-app.start(options);
-```
-
-### Option 1b
-
-
-```js
-const Condor = require('condor-framework');
-const app = new Condor();
- 
-class Greeter {
-  sayHello(call) {
-    let response = { 'greeting': 'Hello ' + call.request.name };
-    return Promise.resolve(response);
-  }
-}
-
-// add service
-app.registerProto('./protos/greeter.proto', 
-  {
-    'myapp.Greeter': new Greeter(), 
-    'myapp.OtherService': new OtherService() 
-  }
-);
-
-// add middleware
-app.use('myapp', function(call) {
-  console.log('Request:', call.request);
-});
-
-// start listening
-app.listen(options);
-```
-
-### Option 1c
+## How to use
 
 ```js
 const condor = require('condor-framework');
@@ -80,19 +21,21 @@ const builder = new condor.Builder();
  
 class Greeter {
   sayHello(call) {
-    let response = { 'greeting': 'Hello ' + call.request.name };
-    return Promise.resolve(response);
+    return { 'greeting': 'Hello ' + call.request.name };
   }
 }
 
 // add service
 builder.registerService('./protos/greeter.proto', 'myapp.Greeter', new Greeter());
-builder.registerService('./protos/greeter.proto', 'myapp.OtherService', new OtherService());
 
 // add middleware
 builder.use('myapp', function(call) {
   console.log('Request:', call.request);
 });
+
+const options = {
+  'port': 3000
+};
 
 builder.setOptions(options);
 
@@ -100,73 +43,10 @@ const server = new condor.Server(builder);
 server.start();
 ```
 
-### Option 2: "Immutable Class" style (inspired on conversation with Yonel)
-
-```js
-const condor = require('condor-framework'); // Le puse este nombre temporal, habría que ver como mismo se llama
-
-class Greeter {
-  sayHello(call) {
-    let response = { 'greeting': 'Hello ' + call.request.name };
-    return Promise.resolve(response);
-  }
-}
-
-// services
-const services = {
-  './protos/greeter.proto': {
-    'myapp.Greeter': new Greeter(),
-  }
-};
-
-const middleware = new condor.Middleware();
-
-middleware.add('myapp', function(call) {
-  console.log('Request:', call.request);
-});
-
-// create and start server
-const server = new condor.Server(services, middleware, options);
-server.start();
-```
-
-## Option 3: Convention over configuration
-
-In the `services/myapp/greeter.js` file
-
-```js
-class Greeter {
-  sayHello(call) {
-    let response = { 'greeting': 'Hello ' + call.request.name };
-    return Promise.resolve(response);
-  }
-}
-```
-
-In the `index.js` file
-
-```js
-const Condor = require('condor-framework'); // Le puse este nombre temporal, habría que ver como mismo se llama
-
-const app = new Condor();
-
-app.use('myapp', function(call) {
-  console.log('Request:', call.request);
-});
-
-const options = {
-  'servicesPath': 'services',
-};
-
-// create and start server
-app.start(options);
-```
-
-
 ## Installation
 
 ```bash
-npm install grpc-server
+npm install --save condor-framework
 ```
 
 ## Highlights (Goals)
