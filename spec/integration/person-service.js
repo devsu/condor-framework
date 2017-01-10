@@ -2,21 +2,22 @@ const grpc = require('grpc');
 const people = require('./people.json');
 let peopleStream;
 
-module.exports = class {
-  list() {
+module.exports = class Person {
+  static list() {
     return Promise.resolve(people);
   }
 
-  insert(call) {
+  static insert(call) {
     people.push(call.request);
-    const person = call.request.person;
+    const person2 = call.request.person;
+    console.log(person, person2, call.request);
     if (peopleStream) {
-      peopleStream.write(person);
+      peopleStream.write(person2);
     }
-    return Promise.resolve(person);
+    return Promise.resolve(person2);
   }
 
-  get(call) {
+  static get(call) {
     const personFound = people.find((element) => {
       return element.id === call.request.id;
     });
@@ -31,7 +32,7 @@ module.exports = class {
     });
   }
 
-  delete(call) {
+  static delete(call) {
     for (let i = 0; i < people.length; i++) {
       if (people[i].id === call.request.id) {
         people.splice(i, 1);
@@ -44,7 +45,17 @@ module.exports = class {
     });
   }
 
-  watch(stream) {
+  static watch(stream) {
     peopleStream = stream;
   }
+
+  static watch2(stream) {
+    peopleStream = stream;
+  }
+
+  static insertMultiple(stream) {
+    peopleStream = stream;
+  }
+
+
 };
