@@ -2,27 +2,51 @@
 
 Minimalist framework for building GRPC services in Node JS.
 
+## Why this framework?
+
+- Because the current GRPC implementation for node doesn't have the GRPC interceptors implemented. That means that middleware should be implemented in the application layer. Since this is a really needed functionality, it makes sense to have it in a module that will help to easily connect middleware methods to the method services.
+- It has more functionality, inspired in Loopback.JS / Sails:
+
+  - ORM/ODM Integration
+  - Automatic "CRUD" methods creation
+  - Generators (This is a future functionality)
+
 **Status**: Documentation draft, receiving feedback.
 
+## How to use
+
 ```js
-const GrpcServer = require('grpc-server');
-const app = new GrpcServer();
+const condor = require('condor-framework');
+const builder = new condor.Builder();
  
 class Greeter {
   sayHello(call) {
-    let response = { 'greeting': 'Hello ' + call.request.name };
-    return Promise.resolve(response);
+    return { 'greeting': 'Hello ' + call.request.name };
   }
 }
 
-app.registerServices('./protos/greeter.proto', 'myapp.Greeter', new Greeter());
-app.listen(3000);
+// add service
+builder.registerService('./protos/greeter.proto', 'myapp.Greeter', new Greeter());
+
+// add middleware
+builder.use('myapp', function(call) {
+  console.log('Request:', call.request);
+});
+
+const options = {
+  'port': 3000
+};
+
+builder.setOptions(options);
+
+const server = new condor.Server(builder);
+server.start();
 ```
 
 ## Installation
 
 ```bash
-npm install grpc-server
+npm install --save condor-framework
 ```
 
 ## Highlights (Goals)
