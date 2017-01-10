@@ -20,7 +20,7 @@ const condor = require('condor-framework');
 const builder = new condor.Builder();
  
 class Greeter {
-  sayHello(call) {
+  static sayHello(call) {
     return { 'greeting': 'Hello ' + call.request.name };
   }
 }
@@ -42,6 +42,7 @@ builder.setOptions(options);
 const server = new condor.Server(builder);
 server.start();
 ```
+*Note: All implementation functions should be `static`
 
 ## Installation
 

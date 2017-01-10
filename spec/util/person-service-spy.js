@@ -1,7 +1,7 @@
 const Spy = require('./spy');
 
 module.exports = class {
-  list(call) {
+  static list() {
     return Spy.resolve();
   }
 };

@@ -1,3 +1,6 @@
 'use strict';
 
-module.exports = require('./lib/grpc-server');
+module.exports = {
+  'Builder': require('./lib/builder'),
+  'Server': require('./lib/server'),
+};
