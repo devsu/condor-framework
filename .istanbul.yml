@@ -1,11 +1,6 @@
 instrumentation:
     include-all-sources: true
 reporting:
-    reports:
-        - lcov
-        - teamcity
-        - text
-        - text-summary
     watermarks:
         statements: [60, 90]
         lines: [60, 90]

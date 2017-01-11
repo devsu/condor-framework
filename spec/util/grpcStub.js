@@ -1,25 +1,22 @@
 const Spy = require('./spy');
 
-const GrpcStub = {};
+module.exports = class GrpcStub {
 
-GrpcStub.load = Spy.returnValue({
-  'testapp': {
-    'PersonService': {
-      'service': 'service',
-    },
-  },
-}, 'load');
+  constructor(serverStub) {
+    this.serverStub = serverStub;
+  }
 
-GrpcStub.ServerMocks = {
-  'addProtoService': Spy.create('addProtoService'),
-  'bind': Spy.create('bind'),
-  'start': Spy.create('start'),
+  load() {
+    return {
+      'testapp': {
+        'PersonService': {
+          'service': 'service',
+        },
+      },
+    };
+  }
+
+  Server() {
+    return this.serverStub;
+  }
 };
-
-GrpcStub.Server = function() {
-  this.addProtoService = GrpcStub.ServerMocks.addProtoService;
-  this.bind = GrpcStub.ServerMocks.bind;
-  this.start = GrpcStub.ServerMocks.start;
-};
-
-module.exports = GrpcStub;

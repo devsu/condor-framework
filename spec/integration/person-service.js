@@ -3,21 +3,20 @@ const people = require('./people.json');
 let peopleStream;
 
 module.exports = class Person {
-  static list() {
+  list() {
     return Promise.resolve(people);
   }
 
-  static insert(call) {
+  insert(call) {
     people.push(call.request);
-    const person2 = call.request.person;
-    console.log(person, person2, call.request);
+    const person = call.request.person;
     if (peopleStream) {
-      peopleStream.write(person2);
+      peopleStream.write(person);
     }
-    return Promise.resolve(person2);
+    return Promise.resolve(person);
   }
 
-  static get(call) {
+  get(call) {
     const personFound = people.find((element) => {
       return element.id === call.request.id;
     });
@@ -32,7 +31,7 @@ module.exports = class Person {
     });
   }
 
-  static delete(call) {
+  delete(call) {
     for (let i = 0; i < people.length; i++) {
       if (people[i].id === call.request.id) {
         people.splice(i, 1);
@@ -45,15 +44,15 @@ module.exports = class Person {
     });
   }
 
-  static watch(stream) {
+  watch(stream) {
     peopleStream = stream;
   }
 
-  static watch2(stream) {
+  watch2(stream) {
     peopleStream = stream;
   }
 
-  static insertMultiple(stream) {
+  insertMultiple(stream) {
     peopleStream = stream;
   }
 

@@ -26,10 +26,10 @@ class Greeter {
 }
 
 // add service
-builder.registerService('./protos/greeter.proto', 'myapp.Greeter', new Greeter());
+builder.addService('./protos/greeter.proto', 'myapp.Greeter', new Greeter());
 
 // add middleware
-builder.use('myapp', function(call) {
+builder.addMiddleware('myapp', function(call) {
   console.log('Request:', call.request);
 });
 
@@ -102,7 +102,7 @@ Before start, we recommend you to get familiar with [GRPC](http://www.grpc.io/).
 4. Add the code to your start script (e.g. `index.js`)
 
   ```js
-  const GrpcServer = require('grpc-server');
+  const GrpcServer = require(getGrpc);
   const app = new GrpcServer();
    
   class Greeter {
