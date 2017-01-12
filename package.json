@@ -35,5 +35,8 @@
     "jasmine": "^2.5.2",
     "nsp": "^2.6.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "grpc": "^1.0.1",
+    "lodash": "^4.17.4"
+  }
 }
