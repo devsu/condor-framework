@@ -1,7 +1,7 @@
 {
-  "name": "grpc-server",
+  "name": "condor-framework",
   "version": "0.0.1",
-  "description": "Minimalist framework for building GRPC services in Node JS.",
+  "description": "Framework for building GRPC services in Node JS.",
   "main": "index.js",
   "scripts": {
     "test": "istanbul cover jasmine",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/devsu/node-grpc-server.git"
+    "url": "git+https://github.com/devsu/condor-framework.git"
   },
   "keywords": [
     "grpc",
@@ -17,20 +17,21 @@
     "web",
     "microservice",
     "server",
-    "express"
+    "express",
+    "condor",
+    "condor-framework"
   ],
-  "author": "César Salazar @ Devsu",
+  "author": "Devsu",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/devsu/node-grpc-server/issues"
+    "url": "https://github.com/devsu/condor-framework/issues"
   },
-  "homepage": "https://github.com/devsu/node-grpc-server#readme",
+  "homepage": "https://github.com/devsu/condor-framework#readme",
   "devDependencies": {
     "istanbul": "^0.4.5",
     "jasmine": "^2.5.2",
     "nsp": "^2.6.2"
   },
   "dependencies": {
-    "bluebird": "^3.4.7"
   }
 }
