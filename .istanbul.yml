@@ -1,11 +1,9 @@
 instrumentation:
     include-all-sources: true
+    exclude: ['**/*.spec.js']
 reporting:
     reports:
         - lcov
-        - teamcity
-        - text
-        - text-summary
     watermarks:
         statements: [60, 90]
         lines: [60, 90]
