@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "istanbul cover jasmine",
-    "posttest": "npm run lint && nsp check && istanbul check-coverage"
+    "posttest": "npm run lint && nsp check && istanbul check-coverage",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -28,10 +29,11 @@
   },
   "homepage": "https://github.com/devsu/condor-framework#readme",
   "devDependencies": {
+    "eslint": "^3.13.1",
+    "eslint-config-devsu-node": "0.0.1",
     "istanbul": "^0.4.5",
     "jasmine": "^2.5.2",
     "nsp": "^2.6.2"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
