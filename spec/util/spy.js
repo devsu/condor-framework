@@ -20,6 +20,10 @@ class Spy {
     return jasmine.createSpy().and.returnValues(...values);
   }
 
+  static throwError(message) {
+    return jasmine.createSpy().and.throwError(message);
+  }
+
 }
 
 module.exports = Spy;
