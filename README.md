@@ -16,25 +16,22 @@ Minimalist framework for building GRPC services in Node JS.
 ## How to use
 
 ```js
-const condor = require('condor-framework');
-const builder = new condor.Builder();
- 
+const Condor = require('condor-framework');
+
 class Greeter {
   sayHello(call) {
     return { 'greeting': 'Hello ' + call.request.name };
   }
 }
 
-// add service
-builder.addService('./protos/greeter.proto', 'myapp.Greeter', new Greeter());
-
-// add middleware
-builder.addMiddleware('myapp', function(call) {
+const logger = (call) => {
   console.log('Request:', call.request);
-});
+};
 
-const server = new condor.Server(builder);
-server.start();
+const app = new Condor()
+  .addService('./protos/greeter.proto', 'myapp.Greeter', new Greeter())
+  .addMiddleware('myapp', logger)
+  .start();
 ```
 
 ## Installation
