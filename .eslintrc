@@ -1,3 +1,6 @@
 {
-  "extends": "devsu-node"
+  "extends": "devsu-node",
+  "rules": {
+    "no-underscore-dangle": "off"
+  }
 }
