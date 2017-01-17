@@ -52,6 +52,7 @@ module.exports = class Mocks {
       'addProtoService': Spy.create('addProtoService'),
       'bind': Spy.create('bind'),
       'start': Spy.create('start'),
+      'started': true,
     };
   }
 
