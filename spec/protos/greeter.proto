@@ -3,9 +3,12 @@ syntax = "proto3";
 package testapp.greeter;
 
 service GreeterService  {
-    rpc sayGoodbye (Empty) returns () { }
-    rpc sayHello (Empty) returns () { }
+  rpc SayGoodbye (Empty) returns (Empty) { }
+  rpc SayHello (Greeter) returns (Greeter) { }
 }
 
 message Empty {}
 
+message Greeter {
+  string greeting = 1;
+}

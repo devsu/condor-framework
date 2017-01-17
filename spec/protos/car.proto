@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package transport.land ;
 
-service CarService {
+service CarService   {
     rpc List (Empty) returns (CarList) { }
 }
 

@@ -9,7 +9,7 @@ service PersonService {
 }
 
 service JobService {
-  rpc List (Empty) returns (BooksList) {}
+  rpc List (Empty) returns (JobList) {}
 }
 
 message Empty {}
@@ -26,4 +26,13 @@ message Person {
 
 message PeopleList {
   repeated Person people = 1;
+}
+
+message Job {
+  int32 id = 1;
+  string name = 2;
+}
+
+message JobList {
+  repeated Job jobs = 1;
 }
