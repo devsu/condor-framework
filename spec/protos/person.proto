@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package testapp;
+
+service PersonService {
+  rpc List (Empty) returns (PeopleList) { }
+  rpc Get (IdRequest) returns (Person) { }
+
+}
+
+service JobService {
+  rpc List (Empty) returns (BooksList) {}
+}
+
+message Empty {}
+
+message IdRequest {
+  int32 id = 1;
+}
+
+message Person {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+}
+
+message PeopleList {
+  repeated Person people = 1;
+}
