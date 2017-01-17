@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package transport.land ;
+
+service CarService {
+    rpc List (Empty) returns (CarList) { }
+}
+
+message Empty {}
+
+message IdRequest {
+  int32 id = 1;
+}
+
+message Car {
+  int32 id = 1;
+  string name = 2;
+}
+
+message CarList {
+  repeated Car cars = 1;
+}

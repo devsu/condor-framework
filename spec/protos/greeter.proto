@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package testapp.greeter;
+
+service GreeterService  {
+    rpc sayGoodbye (Empty) returns () { }
+    rpc sayHello (Empty) returns () { }
+}
+
+message Empty {}
+

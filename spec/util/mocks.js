@@ -59,7 +59,7 @@ module.exports = class Mocks {
   static getGrpc(serverMock) {
     return {
       'load': (filePath) => {
-        if (filePath === 'protoFilePath') {
+        if (filePath === 'spec/protos/person.proto') {
           return {
             'testapp': {
               'PersonService': {
