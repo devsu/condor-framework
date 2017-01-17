@@ -53,6 +53,10 @@ module.exports = class Mocks {
       'bind': Spy.create('bind'),
       'start': Spy.create('start'),
       'started': true,
+      'tryShutdown': Spy.create('tryShutdown').and.callFake((callback) => {
+        callback();
+      }),
+      'forceShutdown': Spy.create('forceShutdown'),
     };
   }
 
