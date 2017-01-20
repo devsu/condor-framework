@@ -2,7 +2,7 @@ const Promise = require('bluebird');
 
 module.exports = class {
   simple(call) {
-    return this._buildResponse(call.request.message, 1);
+    return this._buildResponse(call.request.message);
   }
 
   streamToServer(stream) {
