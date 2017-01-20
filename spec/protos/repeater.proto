@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package testapp.repeater;
+
+service RepeaterService  {
+  rpc Simple (Message) returns (Message) { }
+  rpc StreamToServer (stream Message) returns (Message) { }
+  rpc StreamToClient (Message) returns (stream Message) { }
+  rpc BidirectionalStream (stream Message) returns (stream Message) { }
+}
+
+message Message {
+  string message = 1;
+}
