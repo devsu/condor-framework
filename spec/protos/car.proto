@@ -4,8 +4,6 @@ package transport.land ;
 
 service CarService   {
     rpc Insert (Car) returns (Car) { }
-    rpc CarLog (Car) returns (stream Car) { }
-    rpc Log (stream Car) returns (Car) { }
 }
 
 message Empty {}
