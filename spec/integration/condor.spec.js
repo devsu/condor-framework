@@ -3,7 +3,7 @@ const Condor = require('../../lib/condor');
 const Repeater = require('./repeater');
 
 describe('condor framework', () => {
-  let condor, repeaterClient, message, expectedResponse;
+  let condor, repeaterClient, message, expectedResponse, count;
 
   beforeAll(() => {
     // start server
@@ -13,6 +13,12 @@ describe('condor framework', () => {
     };
     condor = new Condor(options)
       .addService('spec/protos/repeater.proto', 'testapp.repeater.RepeaterService', new Repeater())
+      .addMiddleware('testapp.repeater', () => {
+        count++;
+      })
+      .addMiddleware(() => {
+        count++;
+      })
       .start();
 
     // start client
@@ -98,6 +104,20 @@ describe('condor framework', () => {
       stream.write('Welcome!');
       stream.write('Bienvenido!');
       stream.end();
+    });
+  });
+
+  describe('middleware', () => {
+    beforeEach(() => {
+      count = 0;
+    });
+
+    it('should call middleware added', (done) => {
+      repeaterClient.simple(message, (error) => {
+        expect(error).toBeNull();
+        expect(count).toEqual(2);
+        done();
+      });
     });
   });
 });
