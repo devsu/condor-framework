@@ -169,7 +169,7 @@ It is always recommended that your service implements SSL/TLS on a production en
 const options= {
   'host': 'myservice.example.com',
   'port': 3000,
-  'certs': grpc.ServerCredentials.createSsl(new Buffer('rootCert'), [
+  'creds': grpc.ServerCredentials.createSsl(new Buffer('rootCert'), [
      {
        'cert_chain': new Buffer('cert_chain'),
        'private_key': new Buffer('private_key'),
