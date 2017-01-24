@@ -3,6 +3,7 @@ const Spy = require('./spy');
 class PersonServiceMock {
   list() {} // eslint-disable-line
   get() {} // eslint-disable-line
+  delete() {} // eslint-disable-line
 }
 
 class GreeterServiceMock {
@@ -90,6 +91,7 @@ module.exports = class Mocks {
     const personServiceMock = new PersonServiceMock();
     spyOn(personServiceMock, 'list');
     spyOn(personServiceMock, 'get');
+    spyOn(personServiceMock, 'delete');
     return personServiceMock;
   }
 

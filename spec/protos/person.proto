@@ -3,7 +3,7 @@ syntax = "proto3";
 package testapp;
 
 service PersonService {
-  rpc List (Empty) returns (PeopleList) { }
+  rpc   List (Empty) returns (PeopleList) { }
   rpc Get (IdRequest) returns (Person) { }
 
 }
