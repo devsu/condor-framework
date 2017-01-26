@@ -6,4 +6,5 @@ node_js:
   - "0.6"
   - "iojs"
   - "node"
-script:
+script: 
+-test
