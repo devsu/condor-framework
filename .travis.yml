@@ -4,7 +4,8 @@ node_js:
   - "stable"
 env:
   - NODE_ENV="development"
+  - NODE_ENV="production"
 install:
   - npm install
-script: 
+script:
   - npm test
