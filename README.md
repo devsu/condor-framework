@@ -218,7 +218,20 @@ app.addMiddleware(scope, (call) => {
 });
 ```
 
-If the middleware method return a **promise**, Condor will wait for the promise to be fulfilled before continuing to the next middleware.
+If the middleware method returns a **promise that resolves with a value**, Condor will stop the middleware chain and the method will not be executed.
+
+```js
+const app = new Condor();
+const scope = 'myapp';
+app.addMiddleware(scope, (call) => {
+  return new Promise((resolve) => {
+    console.log('Request:', call.request);
+    resolve({ 'message': 'something' });
+  });
+});
+```
+
+If the middleware method returns a **promise that resolves with nothing**, Condor will wait for the promise to be fulfilled before continuing to the next middleware.
 
 ```js
 const app = new Condor();
@@ -228,6 +241,39 @@ app.addMiddleware(scope, (call) => {
     console.log('Request:', call.request);
     resolve();
   });
+});
+```
+If the middleware method returns a **promise that rejects with nothing or something**, Condor will stop the middleware chain, the method will not be excecuted, and excecute the error handlers chain.
+
+```js
+const app = new Condor();
+const scope = 'myapp';
+app.addMiddleware(scope, (call) => {
+  return new Promise((resolve, reject) => {
+    console.log('Request:', call.request);
+    reject();
+  });
+});
+```
+
+If the middleware method returns **a value**, Condor will stop the middleware chain and the implementation method will not be executed.
+
+```js
+const app = new Condor();
+const scope = 'myapp';
+app.addMiddleware(scope, (call) => {
+  console.log('Request:', call.request);
+  return 'any value';
+});
+```
+
+If the middleware **does not return anything**, the chain will continue and the next middleware will be executed.
+
+```js
+const app = new Condor();
+const scope = 'myapp';
+app.addMiddleware(scope, (call) => {
+  console.log('Request:', call.request);
 });
 ```
 
@@ -304,7 +350,7 @@ app.addErrorHandler(scope, (error, call) => {
 });
 ```
 
-If the error handler return a **promise**, Condor will wait for the promise to be fulfilled before continuing to the next handler.
+If the error handler returns a **promise that resolves with nothing**, Condor will wait for the promise to be fulfilled before continuing to the next handler.
 
 ```js
 const app = new Condor();
@@ -315,6 +361,57 @@ app.addErrorHandler(scope, (error, call) => {
     console.error('for the request', call.request);
     resolve();
   });
+});
+```
+
+If the error handler returns a **promise that resolve with any value**, Condor will stop the error handler chain.
+
+```js
+const app = new Condor();
+const scope = 'myapp';
+app.addErrorHandler(scope, (error, call) => {
+  return new Promise((resolve) => {
+    console.error('Something went wrong', error);
+    console.error('for the request', call.request);
+    resolve({ 'message': 'something' });
+  });
+});
+```
+
+If the error handler returns a **promise that rejects**, Condor will stop the error handler chain.
+
+```js
+const app = new Condor();
+const scope = 'myapp';
+app.addErrorHandler(scope, (error, call) => {
+  return new Promise((resolve, reject) => {
+    console.error('Something went wrong', error);
+    console.error('for the request', call.request);
+    reject({ 'message': 'something' });
+  });
+});
+```
+
+If the error handler **does not return anything**, Condor will wait for the promise to be fulfilled before continuing to the next handler.
+
+```js
+const app = new Condor();
+const scope = 'myapp';
+app.addErrorHandler(scope, (error, call) => {
+  console.error('Something went wrong', error);
+  console.error('for the request', call.request);
+});
+```
+
+If the error handler returns **a value**, Condor will stop the error handler chain.
+
+```js
+const app = new Condor();
+const scope = 'myapp';
+app.addErrorHandler(scope, (error, call) => {
+    console.error('Something went wrong', error);
+    console.error('for the request', call.request);
+    return { 'message': 'something' };
 });
 ```
 
