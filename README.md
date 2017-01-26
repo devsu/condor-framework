@@ -169,39 +169,11 @@ It is always recommended that your service implements SSL/TLS on a production en
 const options= {
   'host': 'myservice.example.com',
   'port': 3000,
-  'certs': root_certs,
+  'rootCert': '/path/to/root/cert',
+  'certChain': '/path/to/cert/chain',
+  'privateKey': '/path/to/private/key',
 };
 app.start(options);
-```
-
-#### Call Credentials
-
-You can also pass your own call credentials, to be combined with the channel credentials.
-
-```js
-const options= {
-  'host': 'myservice.example.com',
-  'port': 3000,
-  'certs': root_certs,
-  'callCredentials': call_credentials,
-};
-app.start(options);
-``` 
-
-#### Authenticate with Google
-
-GRPC has built-in Google authentication. This is useful for example if you are using [Google Compute Engine](https://cloud.google.com/compute/).
-
-The [Google Authentication example](http://www.grpc.io/docs/guides/auth.html#authenticate-with-google-5) in the gRPC documentation, would become:
-
-```js
-const options= {
-  'host': 'myservice.example.com',
-  'port': 3000,
-  'certs': root_certs,
-  'enableGoogleAuthentication': true,
-};
-app.listen(options);
 ```
 
 ### Middleware
