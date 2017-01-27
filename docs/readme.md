@@ -4,6 +4,8 @@ Minimalist, fast framework for building GRPC services in Node JS.
 
 **Status**: Documentation draft, receiving feedback.
 
+![logo](condorjs.png)
+
 
 ## Highlights
 
