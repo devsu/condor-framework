@@ -63,7 +63,7 @@ The execution flow can be controlled based on what the middleware method returns
 
 #### Do not affect the execution flow
 
-If the middleware method doesn't return anything, or if it returns a promise that resolves to `undefined`, the execution will continue normally.
+If the middleware method doesn't return anything, or if it returns a promise that resolves to any `falsy` value, the execution will continue normally.
 
 ```js
 const app = new Condor();
@@ -87,7 +87,7 @@ app.addMiddleware(scope, (call) => {
 
 #### Responding to the user
 
-If the middleware method returns **a value**, or a promise that **resolves to a value** (anything different than `undefined`), Condor will respond to the user with such value, interrupting the execution of the next middleware methods and the actual method implementation.
+If the middleware method returns **a value**, or a promise that **resolves to a value** (any `truthy` value), Condor will respond to the user with such value, interrupting the execution of the next middleware methods and the actual method implementation.
 
 ```js
 const app = new Condor();
