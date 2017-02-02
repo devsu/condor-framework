@@ -1,9 +1,9 @@
 title: Condor GRPC Framework
 description: A GRPC Framework for Node
 menu:
-  - Quick Start: quick-start
   - Documentation: documentation
 links:
   - middleware: middleware
   - error handlers: error-handlers
   - SSL/TLS: ssl-tls
+  - Options: options

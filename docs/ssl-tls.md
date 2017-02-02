@@ -3,30 +3,28 @@ title: SSL / TLS
 layout: default
 ---
 
-### Server Authentication Support
+## SSL/TLS Support
 
 GRPC has some built-in mechanisms for server [authentication](http://www.grpc.io/docs/guides/auth.html).
 
-On production you should use SSL/TLS, but during development, it might be fine to have an insecure environment.
+To enable SSL you just have to pass the host and the paths to the certificate files.
+ 
+```js
+const options= {
+  'host': 'myservice.example.com',      // required
+  'rootCert': '/path/to/root/cert',     // optional
+  'certChain': '/path/to/cert/chain',   // required
+  'privateKey': '/path/to/private/key', // required
+};
+app = new Condor(options);
+```
 
-#### No encryption / authentication
+### No encryption / authentication
 
-This is recommended only during development.
+Just create the app with no options. **This is not recommended for production**.
 
 ```js
 app = new Condor();
 ```
 
-#### Server authentication SSL/TLS
-
-It is always recommended that your service implements SSL/TLS on a production environment. To enable it, you just have to pass the paths to the certificate files.
-
-```js
-const options= {
-  'host': 'myservice.example.com',
-  'rootCert': '/path/to/root/cert',
-  'certChain': '/path/to/cert/chain',
-  'privateKey': '/path/to/private/key',
-};
-app = new Condor(options);
-```
+Next: [Options](options.md)
