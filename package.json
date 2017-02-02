@@ -6,7 +6,8 @@
   "scripts": {
     "test": "istanbul cover jasmine",
     "posttest": "npm run lint && nsp check && istanbul check-coverage",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
   },
   "homepage": "https://github.com/devsu/condor-framework#readme",
   "devDependencies": {
+    "coveralls": "^2.11.15",
     "eslint": "^3.13.1",
     "eslint-config-devsu-node": "0.0.2",
     "istanbul": "^0.4.5",
