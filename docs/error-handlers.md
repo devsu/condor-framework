@@ -1,3 +1,7 @@
+---
+title: Error handlers
+layout: default
+---
 
 ### Error handlers
 

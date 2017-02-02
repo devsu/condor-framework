@@ -1,3 +1,7 @@
+---
+title: Middleware
+layout: default
+---
 
 ### Middleware
 

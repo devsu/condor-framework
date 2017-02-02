@@ -1,3 +1,8 @@
+---
+title: SSL / TLS
+layout: default
+---
+
 ### Server Authentication Support
 
 GRPC has some built-in mechanisms for server [authentication](http://www.grpc.io/docs/guides/auth.html).

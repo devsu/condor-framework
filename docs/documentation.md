@@ -1,14 +1,11 @@
 ---
 title: Condor GRPC Framework
-layout: home
+layout: default
 ---
 
 # Condor Framework
 
 Minimalist, fast framework for building GRPC services in Node JS.
-
-**Status**: Documentation draft, receiving feedback.
-[![Build Status](https://travis-ci.org/devsu/condor-framework.svg?branch=master)](https://travis-ci.org/devsu/condor-framework)
 
 ## Highlights
 
