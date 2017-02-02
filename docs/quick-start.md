@@ -78,7 +78,7 @@ Before start, we recommend you to get familiar with [GRPC](http://www.grpc.io/).
     var client = new greeterProto.myapp.Greeter('127.0.0.1:3000', grpc.credentials.createInsecure());
     
     function sayHello(person) {
-      client.sayHello(person, function(error, greeting) {
+      client.sayHello(person, (error, greeting) => {
         if (error) {
           console.log(error);
           return;

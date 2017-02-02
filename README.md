@@ -32,7 +32,7 @@ const logger = (call) => {
 
 const app = new Condor()
   .addService('./protos/greeter.proto', 'myapp.Greeter', new Greeter())
-  .addMiddleware('myapp', logger)
+  .addMiddleware(logger)
   .start();
 ```
 
