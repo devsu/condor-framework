@@ -1,3 +1,8 @@
+---
+title: Condor GRPC Framework
+layout: default
+---
+
 # Condor Framework
 
 Minimalist, fast framework for building GRPC services in Node JS.

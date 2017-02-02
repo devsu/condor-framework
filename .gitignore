@@ -76,3 +76,6 @@ Temporary Items
 *.iws
 .idea_modules/
 atlassian-ide-plugin.xml
+
+## Docs site
+docs/_site
