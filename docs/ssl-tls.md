@@ -9,20 +9,19 @@ On production you should use SSL/TLS, but during development, it might be fine t
 This is recommended only during development.
 
 ```js
-app.start();
+app = new Condor();
 ```
 
 #### Server authentication SSL/TLS
 
-It is always recommended that your service implements SSL/TLS on a production environment.
+It is always recommended that your service implements SSL/TLS on a production environment. To enable it, you just have to pass the paths to the certificate files.
 
 ```js
 const options= {
   'host': 'myservice.example.com',
-  'port': 3000,
   'rootCert': '/path/to/root/cert',
   'certChain': '/path/to/cert/chain',
   'privateKey': '/path/to/private/key',
 };
-app.start(options);
+app = new Condor(options);
 ```

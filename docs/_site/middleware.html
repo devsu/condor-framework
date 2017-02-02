@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <title>Condor GRPC Framework by devsu</title>
+
+  <link rel="stylesheet" href="/assets/css/style.css?v=83df022557678abb210c79943f5552f63f1f98c8">
+  <meta name="viewport" content="width=device-width">
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+<div class="wrapper">
+  <header>
+    <h1>Condor GRPC Framework</h1>
+    <p>A GRPC Framework for Node</p>
+
+    
+    <p class="view"><a href="http://github.com/devsu/condor-framework">View the Project on GitHub <small></small></a></p>
+    
+
+    
+
+    
+  </header>
+  <section>
+    <h3>Table of contents</h3>
+    
+      
+        <a href="middleware">middleware</a>
+      
+    
+      
+        <a href="authentication">authentication</a>
+      
+    
+      
+        <a href="errorHandlers">error handlers</a>
+      
+    
+  </section>
+  <section>
+
+    
+<h3 id="middleware">Middleware</h3>
+
+<p>You can add custom middleware that is executed before the request is served. The middleware function must return a promise.</p>
+
+<h4 id="how-to-use">How to use</h4>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Condor</span><span class="p">();</span>
+<span class="kr">const</span> <span class="nx">scope</span> <span class="o">=</span> <span class="s1">'myapp'</span><span class="p">;</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">addMiddleware</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span> <span class="p">(</span><span class="nx">call</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Request:'</span><span class="p">,</span> <span class="nx">call</span><span class="p">.</span><span class="nx">request</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>If the middleware method returns a <strong>promise that resolves with a value</strong>, Condor will stop the middleware chain and the method will not be executed.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Condor</span><span class="p">();</span>
+<span class="kr">const</span> <span class="nx">scope</span> <span class="o">=</span> <span class="s1">'myapp'</span><span class="p">;</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">addMiddleware</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span> <span class="p">(</span><span class="nx">call</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Request:'</span><span class="p">,</span> <span class="nx">call</span><span class="p">.</span><span class="nx">request</span><span class="p">);</span>
+    <span class="nx">resolve</span><span class="p">({</span> <span class="s1">'message'</span><span class="p">:</span> <span class="s1">'something'</span> <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>If the middleware method returns a <strong>promise that resolves with nothing</strong>, Condor will wait for the promise to be fulfilled before continuing to the next middleware.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Condor</span><span class="p">();</span>
+<span class="kr">const</span> <span class="nx">scope</span> <span class="o">=</span> <span class="s1">'myapp'</span><span class="p">;</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">addMiddleware</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span> <span class="p">(</span><span class="nx">call</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Request:'</span><span class="p">,</span> <span class="nx">call</span><span class="p">.</span><span class="nx">request</span><span class="p">);</span>
+    <span class="nx">resolve</span><span class="p">();</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+<p>If the middleware method returns a <strong>promise that rejects with nothing or something</strong>, Condor will stop the middleware chain, the method will not be excecuted, and excecute the error handlers chain.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Condor</span><span class="p">();</span>
+<span class="kr">const</span> <span class="nx">scope</span> <span class="o">=</span> <span class="s1">'myapp'</span><span class="p">;</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">addMiddleware</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span> <span class="p">(</span><span class="nx">call</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Request:'</span><span class="p">,</span> <span class="nx">call</span><span class="p">.</span><span class="nx">request</span><span class="p">);</span>
+    <span class="nx">reject</span><span class="p">();</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>If the middleware method returns <strong>a value</strong>, Condor will stop the middleware chain and the implementation method will not be executed.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Condor</span><span class="p">();</span>
+<span class="kr">const</span> <span class="nx">scope</span> <span class="o">=</span> <span class="s1">'myapp'</span><span class="p">;</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">addMiddleware</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span> <span class="p">(</span><span class="nx">call</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Request:'</span><span class="p">,</span> <span class="nx">call</span><span class="p">.</span><span class="nx">request</span><span class="p">);</span>
+  <span class="k">return</span> <span class="s1">'any value'</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>If the middleware <strong>does not return anything</strong>, the chain will continue and the next middleware will be executed.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Condor</span><span class="p">();</span>
+<span class="kr">const</span> <span class="nx">scope</span> <span class="o">=</span> <span class="s1">'myapp'</span><span class="p">;</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">addMiddleware</span><span class="p">(</span><span class="nx">scope</span><span class="p">,</span> <span class="p">(</span><span class="nx">call</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Request:'</span><span class="p">,</span> <span class="nx">call</span><span class="p">.</span><span class="nx">request</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<h4 id="scope">Scope</h4>
+
+<p>When a scope argument is not provided the function is executed for every request.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">addMiddleware</span><span class="p">((</span><span class="nx">call</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Request:'</span><span class="p">,</span> <span class="nx">call</span><span class="p">.</span><span class="nx">request</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>Scope can be a package name.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">addMiddleware</span><span class="p">(</span><span class="s1">'myapp'</span><span class="p">,</span> <span class="p">(</span><span class="nx">call</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// Will execute for every request to the services in the `myapp` package.</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Request:'</span><span class="p">,</span> <span class="nx">call</span><span class="p">.</span><span class="nx">request</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>Or a service name.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">addMiddleware</span><span class="p">(</span><span class="s1">'myapp.Greeter'</span><span class="p">,</span> <span class="p">(</span><span class="nx">call</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// will execute for any request to any method of the `Greeter` service of the `myapp` package.</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Request:'</span><span class="p">,</span> <span class="nx">call</span><span class="p">.</span><span class="nx">request</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<p>Or a specific method name.</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">app</span><span class="p">.</span><span class="nx">addMiddleware</span><span class="p">(</span><span class="s1">'myapp.Greeter.sayHello'</span><span class="p">,</span> <span class="p">(</span><span class="nx">call</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// will execute for every request to the myapp.Greeter.sayHello method.</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Request:'</span><span class="p">,</span> <span class="nx">call</span><span class="p">.</span><span class="nx">request</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+<h4 id="responding-with-error">Responding with error</h4>
+
+<p>If you need to stop the chain and respond with an error immediately, you can just throw the error (or reject a promise).</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="c1">// throw an error</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">addMiddleware</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">error</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">'Error message'</span><span class="p">);</span>
+  <span class="nx">error</span><span class="p">.</span><span class="nx">code</span> <span class="o">=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nx">status</span><span class="p">.</span><span class="nx">PERMISSION_DENIED</span><span class="p">;</span>
+  <span class="k">throw</span> <span class="nx">error</span><span class="p">;</span>
+<span class="p">});</span>
+
+<span class="c1">// Reject a promise</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">addMiddleware</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">({</span>
+    <span class="s1">'code'</span><span class="p">:</span> <span class="nx">grpc</span><span class="p">.</span><span class="nx">status</span><span class="p">.</span><span class="nx">PERMISSION_DENIED</span><span class="p">,</span>
+    <span class="s1">'details'</span><span class="p">:</span> <span class="s1">'You do not have permissions'</span><span class="p">,</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+
+
+  </section>
+  <footer>
+    
+    <p>This project is maintained by <a href="http://github.com/devsu">devsu</a></p>
+    
+  </footer>
+</div>
+<script src="/assets/js/scale.fix.js"></script>
+
+
+
+</body>
+</html>
