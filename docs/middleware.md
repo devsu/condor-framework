@@ -1,68 +1,11 @@
+---
+title: Middleware
+layout: default
+---
 
-### Middleware
+# Middleware
 
-You can add custom middleware that is executed before the request is served. The middleware function must return a promise.
-
-#### How to use
-
-```js
-const app = new Condor();
-const scope = 'myapp';
-app.addMiddleware(scope, (call) => {
-  console.log('Request:', call.request);
-});
-```
-
-If the middleware method returns a **promise that resolves with a value**, Condor will stop the middleware chain and the method will not be executed.
-
-```js
-const app = new Condor();
-const scope = 'myapp';
-app.addMiddleware(scope, (call) => {
-  return new Promise((resolve) => {
-    console.log('Request:', call.request);
-    resolve({ 'message': 'something' });
-  });
-});
-```
-
-If the middleware method returns a **promise that resolves with nothing**, Condor will wait for the promise to be fulfilled before continuing to the next middleware.
-
-```js
-const app = new Condor();
-const scope = 'myapp';
-app.addMiddleware(scope, (call) => {
-  return new Promise((resolve) => {
-    console.log('Request:', call.request);
-    resolve();
-  });
-});
-```
-If the middleware method returns a **promise that rejects with nothing or something**, Condor will stop the middleware chain, the method will not be excecuted, and excecute the error handlers chain.
-
-```js
-const app = new Condor();
-const scope = 'myapp';
-app.addMiddleware(scope, (call) => {
-  return new Promise((resolve, reject) => {
-    console.log('Request:', call.request);
-    reject();
-  });
-});
-```
-
-If the middleware method returns **a value**, Condor will stop the middleware chain and the implementation method will not be executed.
-
-```js
-const app = new Condor();
-const scope = 'myapp';
-app.addMiddleware(scope, (call) => {
-  console.log('Request:', call.request);
-  return 'any value';
-});
-```
-
-If the middleware **does not return anything**, the chain will continue and the next middleware will be executed.
+You can add custom middleware methods, that will be executed before a request is served. 
 
 ```js
 const app = new Condor();
@@ -72,9 +15,14 @@ app.addMiddleware(scope, (call) => {
 });
 ```
 
-#### Scope
+## Features
 
-When a scope argument is not provided the function is executed for every request.
+- [Scope](#scope): To determine what packages, services or methods the middleware should be applied to.
+- [Controlling the execution flow](#controlling-the-execution-flow): Based on the value that the middleware method returns. 
+
+### Scope
+
+When a scope argument is not provided the middleware is executed for every request.
 
 ```js
 app.addMiddleware((call) => {
@@ -109,10 +57,62 @@ app.addMiddleware('myapp.Greeter.sayHello', (call) => {
 });
 ```
 
-#### Responding with error
+### Controlling the execution flow
+
+The execution flow can be controlled based on what the middleware method returns.
+
+#### Do not affect the execution flow
+
+If the middleware method doesn't return anything, or if it returns a promise that resolves to `undefined`, the execution will continue normally.
+
+```js
+const app = new Condor();
+const scope = 'myapp';
+app.addMiddleware(scope, (call) => {
+  // Log the request, and continue
+  console.log('Request:', call.request);
+});
+```
+
+```js
+const app = new Condor();
+const scope = 'myapp';
+app.addMiddleware(scope, (call) => {
+  // Execute an async method, and continue
+  return new Promise((resolve) => {
+    resolve();
+  });
+});
+```
+
+#### Responding to the user
+
+If the middleware method returns **a value**, or a promise that **resolves to a value** (anything different than `undefined`), Condor will respond to the user with such value, interrupting the execution of the next middleware methods and the actual method implementation.
+
+```js
+const app = new Condor();
+const scope = 'myapp';
+app.addMiddleware(scope, (call) => {
+  // Respond to the user immediately
+  return {'message': 'any value'};
+});
+```
+
+```js
+const app = new Condor();
+const scope = 'myapp';
+app.addMiddleware(scope, (call) => {
+  // Respond to the user
+  return new Promise((resolve) => {
+    resolve({ 'message': 'something' });
+  });
+});
+```
+
+#### Responding to the user with error
 
 If you need to stop the chain and respond with an error immediately, you can just throw the error (or reject a promise).
-  
+
 ```js
 // throw an error
 app.addMiddleware(() => {
@@ -120,12 +120,20 @@ app.addMiddleware(() => {
   error.code = grpc.status.PERMISSION_DENIED;
   throw error;
 });
+```
 
-// Reject a promise
-app.addMiddleware(() => {
-  return Promise.reject({
-    'code': grpc.status.PERMISSION_DENIED,
-    'details': 'You do not have permissions',
+```js
+const app = new Condor();
+const scope = 'myapp';
+app.addMiddleware(scope, (call) => {
+  // Respond to the client with error
+  return new Promise((resolve, reject) => {
+    reject({
+      'code': grpc.status.PERMISSION_DENIED,
+      'details': 'You do not have permissions',
+    });
   });
 });
 ```
+
+Next: [Error Handlers](error-handlers)

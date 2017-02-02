@@ -1,3 +1,8 @@
+---
+title: Quick Start
+layout: default
+---
+
 ## Quick start
 
 Before start, we recommend you to get familiar with [GRPC](http://www.grpc.io/).
@@ -90,3 +95,5 @@ Before start, we recommend you to get familiar with [GRPC](http://www.grpc.io/).
     ```bash
     node client.js
     ```
+
+Next: [Middleware](middleware)
