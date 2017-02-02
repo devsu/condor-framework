@@ -11,6 +11,13 @@ class GreeterServiceMock {
   sayGoodbye() {} // eslint-disable-line
 }
 
+class GreeterSubclassServiceMock extends GreeterServiceMock {
+  sayGoodDay() {} // eslint-disable-line
+  sayGoodNight() {} // eslint-disable-line
+}
+
+class GreeterSubSubclassServiceMock extends GreeterSubclassServiceMock {}
+
 class MiddlewareMock {
   constructor() {
     this.globalMiddleware = {'scope': '*', 'method': Spy.create()};
@@ -100,6 +107,10 @@ module.exports = class Mocks {
     spyOn(greeterServiceMock, 'sayHello');
     spyOn(greeterServiceMock, 'sayGoodbye');
     return greeterServiceMock;
+  }
+
+  static getGreeterSubSubclass() {
+    return new GreeterSubSubclassServiceMock();
   }
 
   static getMiddleware() {
