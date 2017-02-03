@@ -3,12 +3,20 @@ const Spy = require('./spy');
 class PersonServiceMock {
   list() {} // eslint-disable-line
   get() {} // eslint-disable-line
+  delete() {} // eslint-disable-line
 }
 
 class GreeterServiceMock {
   sayHello() {} // eslint-disable-line
   sayGoodbye() {} // eslint-disable-line
 }
+
+class GreeterSubclassServiceMock extends GreeterServiceMock {
+  sayGoodDay() {} // eslint-disable-line
+  sayGoodNight() {} // eslint-disable-line
+}
+
+class GreeterSubSubclassServiceMock extends GreeterSubclassServiceMock {}
 
 class MiddlewareMock {
   constructor() {
@@ -90,6 +98,7 @@ module.exports = class Mocks {
     const personServiceMock = new PersonServiceMock();
     spyOn(personServiceMock, 'list');
     spyOn(personServiceMock, 'get');
+    spyOn(personServiceMock, 'delete');
     return personServiceMock;
   }
 
@@ -98,6 +107,10 @@ module.exports = class Mocks {
     spyOn(greeterServiceMock, 'sayHello');
     spyOn(greeterServiceMock, 'sayGoodbye');
     return greeterServiceMock;
+  }
+
+  static getGreeterSubSubclass() {
+    return new GreeterSubSubclassServiceMock();
   }
 
   static getMiddleware() {
