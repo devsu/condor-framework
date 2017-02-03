@@ -1,4 +1,5 @@
 const grpc = require('grpc');
+const fs = require('fs');
 const Condor = require('../../lib/condor');
 const Repeater = require('./repeater');
 const Car = require('./car');
@@ -143,6 +144,32 @@ describe('condor framework', () => {
       carClient.insert({'name': 'mustang'}, (error) => {
         expect(error).toEqual(expectedError);
         expect(countErrors).toEqual(2);
+        done();
+      });
+    });
+  });
+
+  describe('ssl certificates', () => {
+    it('should use ssl credentials between client/server communication', (done) => {
+      const options = {
+        'rootCert': 'spec/ssl/server.crt',
+        'certChain': 'spec/ssl/server.crt',
+        'privateKey': 'spec/ssl/server.key',
+      };
+      condor.stop();
+      condor = new Condor(options)
+        .addService('spec/protos/repeater.proto', 'testapp.repeater.RepeaterService',
+          new Repeater())
+        .start();
+
+      const sslCreds = grpc.credentials.createSsl(fs.readFileSync('spec/ssl/server.crt'));
+      const repeaterProto = grpc.load('spec/protos/repeater.proto');
+      repeaterClient = new repeaterProto.testapp.repeater.RepeaterService('localhost:3000',
+        sslCreds);
+
+      repeaterClient.simple(message, (error) => {
+        expect(error).toBeNull();
+        condor.stop();
         done();
       });
     });
