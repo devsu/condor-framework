@@ -152,7 +152,6 @@ describe('condor framework', () => {
   describe('ssl certificates', () => {
     it('should use ssl credentials between client/server communication', (done) => {
       const options = {
-        'rootCert': 'spec/ssl/server.crt',
         'certChain': 'spec/ssl/server.crt',
         'privateKey': 'spec/ssl/server.key',
       };
