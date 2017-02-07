@@ -47,8 +47,8 @@ Before start, we recommend you to get familiar with [GRPC](http://www.grpc.io/).
   const Condor = require('condor-framework');
    
   class Greeter {
-    sayHello(call) {
-      return { 'greeting': 'Hello ' + call.request.name };
+    sayHello(call, res) {
+      res.resolve({ 'greeting': 'Hello ' + call.request.name });
     }
   }
   

@@ -20,8 +20,8 @@ Minimalist, fast framework for building GRPC services in Node JS.
 const Condor = require('condor-framework');
 
 class Greeter {
-  sayHello(call) {
-    return { 'greeting': 'Hello ' + call.request.name };
+  sayHello(call, res) {
+    res.resolve({ 'greeting': 'Hello ' + call.request.name });
   }
 }
 
