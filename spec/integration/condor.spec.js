@@ -1,11 +1,9 @@
 const grpc = require('grpc');
-const fs = require('fs');
 const Condor = require('../../lib/condor');
 const Repeater = require('./repeater');
-const Car = require('./car');
 
 describe('condor framework', () => {
-  let condor, repeaterClient, carClient, message, expectedResponse, count, countErrors;
+  let condor, repeaterClient, message, expectedResponse;
 
   beforeAll(() => {
     // start server
@@ -15,28 +13,11 @@ describe('condor framework', () => {
     };
     condor = new Condor(options)
       .addService('spec/protos/repeater.proto', 'testapp.repeater.RepeaterService', new Repeater())
-      .addService('spec/protos/car.proto', 'transport.land.CarService', new Car())
-      .addMiddleware('testapp.repeater', () => {
-        count++;
-      })
-      .addMiddleware(() => {
-        count++;
-      })
-      .addErrorHandler(() => {
-        countErrors++;
-      })
-      .addErrorHandler('transport.land.CarService.insert', () => {
-        countErrors++;
-      })
       .start();
 
     // start client
     const repeaterProto = grpc.load('spec/protos/repeater.proto');
     repeaterClient = new repeaterProto.testapp.repeater.RepeaterService('127.0.0.1:9999',
-      grpc.credentials.createInsecure());
-
-    const carProto = grpc.load('spec/protos/car.proto');
-    carClient = new carProto.transport.land.CarService('127.0.0.1:9999',
       grpc.credentials.createInsecure());
   });
 
@@ -117,60 +98,6 @@ describe('condor framework', () => {
       stream.write('Welcome!');
       stream.write('Bienvenido!');
       stream.end();
-    });
-  });
-
-  describe('middleware', () => {
-    beforeEach(() => {
-      count = 0;
-    });
-
-    it('should call middleware added', (done) => {
-      repeaterClient.simple(message, (error) => {
-        expect(error).toBeNull();
-        expect(count).toEqual(2);
-        done();
-      });
-    });
-  });
-
-  describe('error handlers', () => {
-    beforeEach(() => {
-      countErrors = 0;
-    });
-
-    it('should call error handlers added', (done) => {
-      const expectedError = new Error('Method not implemented yet');
-      carClient.insert({'name': 'mustang'}, (error) => {
-        expect(error).toEqual(expectedError);
-        expect(countErrors).toEqual(2);
-        done();
-      });
-    });
-  });
-
-  describe('ssl certificates', () => {
-    it('should use ssl credentials between client/server communication', (done) => {
-      const options = {
-        'certChain': 'spec/ssl/server.crt',
-        'privateKey': 'spec/ssl/server.key',
-      };
-      condor.stop();
-      condor = new Condor(options)
-        .addService('spec/protos/repeater.proto', 'testapp.repeater.RepeaterService',
-          new Repeater())
-        .start();
-
-      const sslCreds = grpc.credentials.createSsl(fs.readFileSync('spec/ssl/server.crt'));
-      const repeaterProto = grpc.load('spec/protos/repeater.proto');
-      repeaterClient = new repeaterProto.testapp.repeater.RepeaterService('localhost:3000',
-        sslCreds);
-
-      repeaterClient.simple(message, (error) => {
-        expect(error).toBeNull();
-        condor.stop();
-        done();
-      });
     });
   });
 });

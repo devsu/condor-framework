@@ -1,18 +1,18 @@
 const Promise = require('bluebird');
 
 module.exports = class {
-  simple(call) {
-    return this._buildResponse(call.request.message);
+  simple(call, res) {
+    res.resolve(this._buildResponse(call.request.message));
   }
 
-  streamToServer(stream) {
+  streamToServer(stream, res) {
     let messages = '';
     return new Promise((resolve) => {
       stream.on('data', (data) => {
         messages = messages.concat(data.message);
       });
       stream.on('end', () => {
-        resolve(this._buildResponse(messages));
+        resolve(res.resolve(this._buildResponse(messages)));
       });
     });
   }
