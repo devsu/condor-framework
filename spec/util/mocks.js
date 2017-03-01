@@ -20,14 +20,16 @@ class GreeterSubSubclassServiceMock extends GreeterSubclassServiceMock {}
 
 class MiddlewareMock {
   constructor() {
-    this.globalMiddleware = {'scope': '*', 'method': Spy.create()};
-    this.packageMiddleware = {'scope': 'testapp', 'method': Spy.create()};
-    this.packageMiddleware2 = {'scope': 'greeter', 'method': Spy.create()};
-    this.packageMiddleware3 = {'scope': 'PersonService', 'method': Spy.create()};
-    this.serviceMiddleware = {'scope': 'testapp.PersonService', 'method': Spy.create()};
-    this.serviceMiddleware2 = {'scope': 'testapp.GreeterService', 'method': Spy.create()};
-    this.methodMiddleware = {'scope': 'testapp.PersonService.list', 'method': Spy.create()};
-    this.methodMiddleware2 = {'scope': 'testapp.PersonService.get', 'method': Spy.create()};
+    this.globalMiddleware = {'scope': '*', 'method': Spy.callFake(callNext)};
+    this.packageMiddleware = {'scope': 'testapp', 'method': Spy.callFake(callNext)};
+    this.packageMiddleware2 = {'scope': 'greeter', 'method': Spy.callFake(callNext)};
+    this.packageMiddleware3 = {'scope': 'PersonService', 'method': Spy.callFake(callNext)};
+    this.serviceMiddleware = {'scope': 'testapp.PersonService', 'method': Spy.callFake(callNext)};
+    this.serviceMiddleware2 = {'scope': 'testapp.GreeterService', 'method': Spy.callFake(callNext)};
+    this.methodMiddleware = {'scope': 'testapp.PersonService.list',
+      'method': Spy.callFake(callNext)};
+    this.methodMiddleware2 = {'scope': 'testapp.PersonService.get',
+      'method': Spy.callFake(callNext)};
     this.middleware = [
       this.globalMiddleware, this.packageMiddleware, this.packageMiddleware2,
       this.packageMiddleware3, this.serviceMiddleware, this.serviceMiddleware2,
@@ -122,3 +124,6 @@ module.exports = class Mocks {
   }
 };
 
+function callNext(context, next) {
+  return next();
+}

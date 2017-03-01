@@ -24,6 +24,10 @@ class Spy {
     return jasmine.createSpy().and.throwError(message);
   }
 
+  static callFake(fn, name) {
+    return jasmine.createSpy(name).and.callFake(fn);
+  }
+
 }
 
 module.exports = Spy;
