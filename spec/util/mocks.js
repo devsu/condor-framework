@@ -20,16 +20,17 @@ class GreeterSubSubclassServiceMock extends GreeterSubclassServiceMock {}
 
 class MiddlewareMock {
   constructor() {
-    this.globalMiddleware = {'scope': '*', 'method': Spy.callFake(callNext)};
-    this.packageMiddleware = {'scope': 'testapp', 'method': Spy.callFake(callNext)};
-    this.packageMiddleware2 = {'scope': 'greeter', 'method': Spy.callFake(callNext)};
-    this.packageMiddleware3 = {'scope': 'PersonService', 'method': Spy.callFake(callNext)};
-    this.serviceMiddleware = {'scope': 'testapp.PersonService', 'method': Spy.callFake(callNext)};
-    this.serviceMiddleware2 = {'scope': 'testapp.GreeterService', 'method': Spy.callFake(callNext)};
+    this.globalMiddleware = {'scope': '*', 'method': Spy.callFake(middleware)};
+    this.packageMiddleware = {'scope': 'testapp', 'method': Spy.callFake(middleware)};
+    this.packageMiddleware2 = {'scope': 'greeter', 'method': Spy.callFake(middleware)};
+    this.packageMiddleware3 = {'scope': 'PersonService', 'method': Spy.callFake(middleware)};
+    this.serviceMiddleware = {'scope': 'testapp.PersonService', 'method': Spy.callFake(middleware)};
+    this.serviceMiddleware2 = {'scope': 'testapp.GreeterService',
+      'method': Spy.callFake(middleware)};
     this.methodMiddleware = {'scope': 'testapp.PersonService.list',
-      'method': Spy.callFake(callNext)};
+      'method': Spy.callFake(middleware)};
     this.methodMiddleware2 = {'scope': 'testapp.PersonService.get',
-      'method': Spy.callFake(callNext)};
+      'method': Spy.callFake(middleware)};
     this.middleware = [
       this.globalMiddleware, this.packageMiddleware, this.packageMiddleware2,
       this.packageMiddleware3, this.serviceMiddleware, this.serviceMiddleware2,
@@ -40,14 +41,19 @@ class MiddlewareMock {
 
 class ErrorHandlerMock {
   constructor() {
-    this.globalErrorHandler = {'scope': '*', 'method': Spy.create()};
-    this.packageErrorHandler = {'scope': 'testapp', 'method': Spy.create()};
-    this.packageErrorHandler2 = {'scope': 'greeter', 'method': Spy.create()};
-    this.packageErrorHandler3 = {'scope': 'PersonService', 'method': Spy.create()};
-    this.serviceErrorHandler = {'scope': 'testapp.PersonService', 'method': Spy.create()};
-    this.serviceErrorHandler2 = {'scope': 'testapp.GreeterService', 'method': Spy.create()};
-    this.methodErrorHandler = {'scope': 'testapp.PersonService.list', 'method': Spy.create()};
-    this.methodErrorHandler2 = {'scope': 'testapp.PersonService.get', 'method': Spy.create()};
+    this.globalErrorHandler = {'scope': '*', 'method': Spy.callFake(errorHandler)};
+    this.packageErrorHandler = {'scope': 'testapp', 'method': Spy.callFake(errorHandler)};
+    this.packageErrorHandler2 = {'scope': 'greeter', 'method': Spy.callFake(errorHandler)};
+    this.packageErrorHandler3 = {'scope': 'PersonService',
+      'method': Spy.callFake(errorHandler)};
+    this.serviceErrorHandler = {'scope': 'testapp.PersonService',
+      'method': Spy.callFake(errorHandler)};
+    this.serviceErrorHandler2 = {'scope': 'testapp.GreeterService',
+      'method': Spy.callFake(errorHandler)};
+    this.methodErrorHandler = {'scope': 'testapp.PersonService.list',
+      'method': Spy.callFake(errorHandler)};
+    this.methodErrorHandler2 = {'scope': 'testapp.PersonService.get',
+      'method': Spy.callFake(errorHandler)};
     this.errorHandlers = [
       this.globalErrorHandler, this.packageErrorHandler, this.packageErrorHandler2,
       this.packageErrorHandler3, this.serviceErrorHandler, this.serviceErrorHandler2,
@@ -124,6 +130,10 @@ module.exports = class Mocks {
   }
 };
 
-function callNext(context, next) {
+function middleware(context, next) {
   return next();
+}
+
+function errorHandler(error, context, next) {
+  return next(error);
 }
