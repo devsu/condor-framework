@@ -125,7 +125,7 @@ module.exports = class Mocks {
     return new MiddlewareMock();
   }
 
-  static getErrorHandler() {
+  static getErrorHandlers() {
     return new ErrorHandlerMock();
   }
 };
