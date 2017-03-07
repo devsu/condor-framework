@@ -3,67 +3,67 @@ title: Quick Start
 layout: default
 ---
 
-## Quick start
+# Quick start
 
 Before start, we recommend you to get familiar with [GRPC](http://www.grpc.io/).
 
-1. Create your app
+### 1. Create your app
 
-  ```bash
-  mkdir my-app
-  cd my-app
-  npm init
-  ```
+```bash
+mkdir my-app
+cd my-app
+npm init
+```
 
-2. Add the dependencies
-
-  ```bash
-  npm i --save condor-framework
-  ```
-
-3. If you don't have it, create your proto file. (e.g. `protos/greeter.proto`)
-
-  ```proto
-  syntax = "proto3";
+### 2. Add the dependencies
   
-  package myapp;
-  
-  message Person {
-    string name = 1;
+```bash
+npm i --save condor-framework
+```
+
+### 3. If you don't have it, create your proto file. (e.g. `protos/greeter.proto`)
+
+```proto
+syntax = "proto3";
+
+package myapp;
+
+message Person {
+  string name = 1;
+}
+
+message Greeting {
+  string greeting = 1;
+}
+
+service Greeter {
+  rpc sayHello (Person) returns (Greeting) { }
+}
+```
+
+### 4. Add the code to your start script (e.g. `index.js`)
+
+```js
+const Condor = require('condor-framework');
+ 
+class Greeter {
+  sayHello(call) {
+    return { 'greeting': `Hello ${call.request.name}`};
   }
-  
-  message Greeting {
-    string greeting = 1;
-  }
-  
-  service Greeter {
-    rpc sayHello (Person) returns (Greeting) { }
-  }
-  ```
+}
 
-4. Add the code to your start script (e.g. `index.js`)
+const app = new Condor()
+  .addService('./protos/greeter.proto', 'myapp.Greeter', new Greeter())
+  .start();
+```
 
-  ```js
-  const Condor = require('condor-framework');
-   
-  class Greeter {
-    sayHello(call) {
-      return { 'greeting': 'Hello ' + call.request.name };
-    }
-  }
-  
-  const app = new Condor()
-    .addService('./protos/greeter.proto', new Greeter())
-    .start();
-  ```
+### 5. Run your app
 
-5. Run your app
+```bash
+node index.js
+```
 
-  ```bash
-  node index.js
-  ```
-
-6. To test your app with a client. 
+### 6. To test your app with a client. 
 
   - Add required dependencies
   
@@ -96,4 +96,4 @@ Before start, we recommend you to get familiar with [GRPC](http://www.grpc.io/).
     node client.js
     ```
 
-Next: [Middleware](middleware)
+Next: [Add Service](add-service)

@@ -1,0 +1,273 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700");
+/* line 2, ../sass/condor.scss */
+html,
+body {
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1em;
+  color: #7a7a7a;
+  line-height: 1.5em;
+}
+
+/* line 10, ../sass/condor.scss */
+a {
+  color: #015F64;
+}
+/* line 12, ../sass/condor.scss */
+a:hover, a:focus, a:active {
+  color: #029FA9;
+}
+
+/* line 18, ../sass/condor.scss */
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* line 24, ../sass/condor.scss */
+h3 {
+  color: #029FA9;
+}
+
+/* line 27, ../sass/condor.scss */
+img {
+  max-width: 100%;
+}
+
+/* line 30, ../sass/condor.scss */
+.btn-primary {
+  background: #029FA9;
+  border-color: #029FA9;
+  text-transform: uppercase;
+  transition: all .35s ease-in-out;
+  font-family: 'Montserrat', sans-serif;
+}
+/* line 36, ../sass/condor.scss */
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+  background: #02b7c2;
+}
+
+/* line 42, ../sass/condor.scss */
+.btn-xl {
+  padding: 10px 25px;
+  font-size: 1.2em;
+}
+
+/* line 46, ../sass/condor.scss */
+section {
+  padding: 75px 0;
+}
+
+/* line 49, ../sass/condor.scss */
+nav {
+  background: #029FA9;
+  overflow: hidden;
+  position: relative;
+  z-index: 3;
+}
+/* line 54, ../sass/condor.scss */
+nav .logo {
+  padding: 15px;
+}
+/* line 56, ../sass/condor.scss */
+nav .logo a {
+  opacity: .8;
+  transition: all .35 ease-in-out;
+}
+/* line 59, ../sass/condor.scss */
+nav .logo a:hover {
+  opacity: 1;
+}
+/* line 63, ../sass/condor.scss */
+nav .logo img {
+  max-width: 200px;
+}
+/* line 68, ../sass/condor.scss */
+nav .menu {
+  text-align: right;
+}
+/* line 70, ../sass/condor.scss */
+nav .menu ul {
+  list-style-type: none;
+  margin: 0 !important;
+  padding: 0;
+}
+/* line 74, ../sass/condor.scss */
+nav .menu ul li {
+  display: inline-block;
+}
+/* line 76, ../sass/condor.scss */
+nav .menu ul li a {
+  padding: 25px 15px;
+  text-transform: uppercase;
+  display: block;
+  transition: all .35s ease-in-out;
+}
+/* line 82, ../sass/condor.scss */
+nav .menu ul li a,
+nav .menu ul li a:hover,
+nav .menu ul li a:focus,
+nav .menu ul li a:active {
+  text-decoration: none;
+  color: #fff;
+  opacity: .8;
+}
+/* line 90, ../sass/condor.scss */
+nav .menu ul li a:hover {
+  opacity: 1;
+}
+/* line 95, ../sass/condor.scss */
+nav .menu img {
+  height: 50px;
+}
+
+/* line 100, ../sass/condor.scss */
+header {
+  width: 100%;
+  height: 100%;
+  background: #333 url(../img/andes.jpg) no-repeat center center;
+  background-size: cover;
+  position: relative;
+  display: table;
+  vertical-align: middle;
+  margin-top: -90px;
+}
+/* line 109, ../sass/condor.scss */
+header .header-content {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  z-index: 2;
+}
+/* line 115, ../sass/condor.scss */
+header h1 {
+  color: white;
+  padding: 0 25%;
+  line-height: 1.4em;
+}
+/* line 120, ../sass/condor.scss */
+header .arrow {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  bottom: 50px;
+}
+/* line 125, ../sass/condor.scss */
+header .arrow img {
+  max-width: 50px;
+}
+/* line 129, ../sass/condor.scss */
+header a {
+  margin-top: 30px;
+  padding: 15px;
+}
+
+/* line 135, ../sass/condor.scss */
+#highlights .highlight {
+  text-align: center;
+}
+/* line 137, ../sass/condor.scss */
+#highlights .highlight h4 {
+  color: #029FA9;
+}
+/* line 140, ../sass/condor.scss */
+#highlights .highlight img {
+  max-width: 120px;
+}
+
+/* line 146, ../sass/condor.scss */
+.code {
+  margin-top: 50px;
+}
+
+/* line 149, ../sass/condor.scss */
+.main-content {
+  padding: 75px 0;
+}
+
+/* line 152, ../sass/condor.scss */
+aside {
+  position: fixed;
+  width: 100%;
+}
+/* line 156, ../sass/condor.scss */
+aside .nav {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+/* line 160, ../sass/condor.scss */
+aside .nav li a {
+  padding: 5px 0;
+  display: block;
+  padding-left: 10px;
+  border-left: 5px solid transparent;
+  transition: all 0.35s;
+}
+/* line 166, ../sass/condor.scss */
+aside .nav li a:hover, aside .nav li a:active {
+  background-color: azure;
+  text-decoration: none;
+  color: #029FA9;
+}
+/* line 172, ../sass/condor.scss */
+aside .nav li a:focus {
+  background: none;
+  color: #029FA9;
+}
+/* line 177, ../sass/condor.scss */
+aside .nav li.active {
+  background-color: azure;
+  border-left: 5px solid #029FA9;
+}
+
+/* line 183, ../sass/condor.scss */
+article {
+  padding: 25px 0;
+}
+
+/* line 186, ../sass/condor.scss */
+footer {
+  background: #015F64;
+  color: #fff;
+  padding: 15px 0;
+}
+/* line 190, ../sass/condor.scss */
+footer .licence {
+  padding: 25px 0;
+}
+/* line 193, ../sass/condor.scss */
+footer .copy {
+  text-align: right;
+  padding: 15px 0;
+}
+/* line 196, ../sass/condor.scss */
+footer .copy img {
+  width: 100px;
+}
+
+@media only screen and (max-width: 768px) {
+  /* line 202, ../sass/condor.scss */
+  nav,
+  nav .menu {
+    text-align: center;
+  }
+  /* line 205, ../sass/condor.scss */
+  nav ul li a,
+  nav .menu ul li a {
+    padding: 10px;
+    font-size: 1em;
+  }
+
+  /* line 210, ../sass/condor.scss */
+  header h1 {
+    padding: 0;
+  }
+}
+
+table td, table th {
+  padding: 5px;
+}

@@ -3,7 +3,7 @@ title: SSL / TLS
 layout: default
 ---
 
-## SSL/TLS Support
+# SSL/TLS Support
 
 GRPC has some built-in mechanisms for server [authentication](http://www.grpc.io/docs/guides/auth.html).
 
@@ -19,7 +19,7 @@ const options= {
 app = new Condor(options);
 ```
 
-### No encryption / authentication
+## No encryption / authentication
 
 Just create the app with no options. **This is not recommended for production**.
 

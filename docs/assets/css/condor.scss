@@ -1,0 +1,214 @@
+@import 'variables.scss';
+html,
+body{
+    height: 100%;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1em;
+    color: #7a7a7a;
+    line-height: 1.5em;
+}
+a{
+    color: $secondary;
+    &:hover,
+    &:focus,
+    &:active{
+        color: $primary;
+    }
+}
+h1,
+h2,
+h3,
+h4{
+    font-family: 'Montserrat', sans-serif;
+}
+h3{
+    color: $primary;
+}
+img{
+    max-width: 100%;
+}
+.btn-primary{
+    background: $primary;
+    border-color: $primary;
+    text-transform: uppercase;
+    transition: all .35s ease-in-out;
+    font-family: 'Montserrat', sans-serif;
+    &:hover,
+    &:active,
+    &:focus{
+        background: lighten($primary, 5%);
+    }
+}
+.btn-xl{
+    padding:10px 25px;
+    font-size: 1.2em;
+}
+section{
+    padding: 75px 0 ;
+}
+nav{
+    background: $primary;
+    overflow: hidden;
+    position: relative;
+    z-index: 3;
+    .logo{
+        padding: 15px;
+        a{
+            opacity: .8;
+            transition: all .35 ease-in-out;
+            &:hover{
+                opacity: 1;
+            }
+        }
+        img{
+            max-width: 200px;
+
+        }
+    }
+    .menu{
+        text-align: right;
+        ul{
+            list-style-type: none;
+            margin: 0 !important;
+            padding: 0;
+            li{
+                display: inline-block;
+                a{
+                    padding: 25px 15px;
+                    text-transform: uppercase;
+                    display: block;
+                    transition: all .35s ease-in-out;
+                }
+                a,
+                a:hover,
+                a:focus,
+                a:active{
+                    text-decoration: none;
+                    color: #fff;
+                    opacity: .8;
+                }
+                a:hover{
+                    opacity: 1;
+                }
+            }
+        }
+        img{
+            height: 50px;
+        }
+    }
+}
+header{
+    width: 100%;
+    height: 100%;
+    background:#333 url(../img/andes.jpg) no-repeat center center;
+    background-size: cover;
+    position: relative;
+    display: table;
+    vertical-align: middle;
+    margin-top: -90px;
+    .header-content{
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+        z-index: 2;
+    }
+    h1{
+        color: white;
+        padding: 0 25%;
+        line-height: 1.4em;
+    }
+    .arrow{
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        bottom: 50px;
+        img{
+            max-width: 50px;
+        }
+    }
+    a{
+        margin-top: 30px;
+        padding: 15px;
+    }
+}
+#highlights{
+    .highlight{
+        text-align: center;
+        h4{
+            color: $primary;
+        }
+        img{
+            max-width: 120px;
+        }
+    }
+}
+
+.code{
+    margin-top: 50px;
+}
+.main-content{
+    padding: 75px 0;
+}
+aside{
+    position: fixed;
+    width: 100%;
+
+    .nav{
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        li a{
+            padding: 5px 0;
+            display: block;
+            padding-left: 10px;
+            border-left: 5px solid transparent;
+            transition: all .35s ;
+            &:hover,
+            &:active{
+                background-color:azure;
+                text-decoration: none;
+                color: $primary;
+            }
+            &:focus{
+                background: none;
+                color: $primary;
+            }
+        }
+        li.active{
+            background-color:azure;
+            border-left: 5px solid $primary;
+        }
+    }
+}
+article{
+    padding: 25px 0;
+}
+footer{
+    background: $secondary;
+    color: #fff;
+    padding: 15px 0;
+    .licence{
+        padding: 25px 0;
+    }
+    .copy{
+        text-align: right;
+        padding: 15px 0;
+        img{
+            width:100px;
+        }
+    }
+}
+@media only screen and (max-width: 768px){
+    nav,
+    nav .menu{
+        text-align: center;
+        ul li a{
+            padding: 10px;
+            font-size: 1em;
+        }
+    }
+    header h1{
+        padding: 0;
+    }
+
+}

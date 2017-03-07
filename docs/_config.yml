@@ -1,9 +1,15 @@
 title: Condor GRPC Framework
 description: A GRPC Framework for Node
-menu:
-  - Documentation: documentation
+documentation: documentation
+google_analytics: UA-92561419-1
+documentation: documentation
+npm: https://www.npmjs.com/package/condor-framework
 links:
-  - middleware: middleware
-  - error handlers: error-handlers
+  - Documentation: documentation
+  - Quick Start: quick-start
+  - Add Service: add-service
+  - GRPC Requests: grpc-requests
+  - Middleware: middleware
+  - Error Handlers: error-handlers
   - SSL/TLS: ssl-tls
   - Options: options
