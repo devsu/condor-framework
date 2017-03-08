@@ -1,51 +1,142 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Devsu">
   <title>{{ site.title | default: site.github.repository_name }} by {{ site.github.owner_name }}</title>
-
   <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
-  <meta name="viewport" content="width=device-width">
   <!--[if lt IE 9]>
   <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+
+  <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/css/condor.css">
+
 </head>
-<body>
-<div class="wrapper">
-  <header>
-    <h1>{{ site.title | default: site.github.repository_name }}</h1>
-    <p>{{ site.description | default: site.github.project_tagline }}</p>
 
-    <p class="view"><a href="{{ site.github.repository_url }}">View the Project on GitHub <small>{{ github_name }}</small></a></p>
-  </header>
-  <section>
-    <!-- Main Menu -->
-    {% for link_hash in site.menu %}
-    {% for link in link_hash %}
-    <a href="{{ link[1] }}">{{ link[0] }}</a>
-    {% endfor %}
-    {% endfor %}
-  </section>
-  <section>
+<body data-spy="scroll" data-target=".navbar">
+<nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3 logo">
+        <a href="/"><img src="assets/img/condor.svg"></a>
+      </div>
+      <div class="col-sm-9 menu">
+        <ul>
+          <li><a href="{{ site.documentation }}">Documentation</a></li>
+          <li>
+            <a href="{{ site.npm }}" title="Install NPM"><img src="assets/img/npm.svg"></a>
+          </li>
+          <li>
+            <a href="{{ site.github.repository_url }}" title="View on GitHub"><img src="assets/img/github.svg"></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
 
-    {{ content }}
+<header>
+  <div class="header-content">
+    <h1>Minimalist, fast framework for building GRPC services in Node JS</h1>
+    <a href="{{ site.documentation }}" class="btn btn-primary btn-xl">Get Started</a>
+    <div class="arrow">
+      <a href="#highlights" class="page-scroll"><img src="assets/img/down.svg"></a>
+    </div>
+  </div>
 
-  </section>
-  <footer>
-  </footer>
-</div>
+</header>
+<section id="highlights">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="highlight">
+          <img src="assets/img/hl1.svg">
+          <h4>Focused on simplicity and high performance</h4>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="highlight">
+          <img src="assets/img/hl2.svg">
+          <h4>Fully covered by tests</h4>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="highlight">
+          <img src="assets/img/hl3.svg">
+          <h4>Promise based, which means no callbacks</h4>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="highlight">
+          <img src="assets/img/hl4.svg">
+          <h4>Written in ES6 for ES6</h4>
+        </div>
+      </div>
+    </div>
+  </div>
 
-{% if site.google_analytics %}
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', '{{ site.google_analytics }}', 'auto');
-  ga('send', 'pageview');
-</script>
-{% endif %}
+  <div class="code">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <h3>Easy to use</h3>
+          <!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008800; font-weight: bold">const</span> Condor <span style="color: #333333">=</span> require(<span style="background-color: #fff0f0">&#39;condor-framework&#39;</span>);
+
+<span style="color: #008800; font-weight: bold">class</span> Greeter {
+  sayHello(call) {
+    <span style="color: #008800; font-weight: bold">return</span> { <span style="background-color: #fff0f0">&#39;greeting&#39;</span><span style="color: #333333">:</span> <span style="background-color: #fff0f0">&#39;Hello &#39;</span> <span style="color: #333333">+</span> call.request.name };
+  }
+}
+
+<span style="color: #008800; font-weight: bold">const</span> logger <span style="color: #333333">=</span> (context, next) <span style="color: #333333">=&gt;</span> {
+  console.log(<span style="background-color: #fff0f0">&#39;Request:&#39;</span>, call.request);
+  <span style="color: #008800; font-weight: bold">return</span> next();
+};
+
+<span style="color: #008800; font-weight: bold">const</span> app <span style="color: #333333">=</span> <span style="color: #008800; font-weight: bold">new</span> Condor()
+  .addService(<span style="background-color: #fff0f0">&#39;./protos/greeter.proto&#39;</span>, <span style="background-color: #fff0f0">&#39;myapp.Greeter&#39;</span>, <span style="color: #008800; font-weight: bold">new</span> Greeter())
+  .use(logger)
+  .start();
+</pre></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+</section>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-6">
+        <div class="licence">
+          <span>MIT © 2017, Devsu LLC</span>
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <div class="copy">
+          <img src="assets/img/devsu.svg">
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="assets/js/jquery.easing.min.js"></script>
+<script src="assets/js/condor.js"></script>
+{% include analytics.html %}
 </body>
+
 </html>

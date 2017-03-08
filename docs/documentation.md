@@ -1,6 +1,6 @@
 ---
 title: Condor GRPC Framework
-layout: home
+layout: default
 ---
 
 # Condor: A GRPC Framework for node

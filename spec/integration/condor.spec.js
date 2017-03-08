@@ -16,17 +16,21 @@ describe('condor framework', () => {
     condor = new Condor(options)
       .addService('spec/protos/repeater.proto', 'testapp.repeater.RepeaterService', new Repeater())
       .addService('spec/protos/car.proto', 'transport.land.CarService', new Car())
-      .addMiddleware('testapp.repeater', () => {
+      .use('testapp.repeater', (context, next) => {
         count++;
+        return next();
       })
-      .addMiddleware(() => {
+      .use((context, next) => {
         count++;
+        return next();
       })
-      .addErrorHandler(() => {
+      .addErrorHandler((error, context, next) => {
         countErrors++;
+        return next(error);
       })
-      .addErrorHandler('transport.land.CarService.insert', () => {
+      .addErrorHandler('transport.land.CarService.insert', (error, context, next) => {
         countErrors++;
+        return next(error);
       })
       .start();
 
@@ -151,16 +155,15 @@ describe('condor framework', () => {
 
   describe('ssl certificates', () => {
     it('should use ssl credentials between client/server communication', (done) => {
+      condor.stop();
       const options = {
         'certChain': 'spec/ssl/server.crt',
         'privateKey': 'spec/ssl/server.key',
       };
-      condor.stop();
       condor = new Condor(options)
         .addService('spec/protos/repeater.proto', 'testapp.repeater.RepeaterService',
           new Repeater())
         .start();
-
       const sslCreds = grpc.credentials.createSsl(fs.readFileSync('spec/ssl/server.crt'));
       const repeaterProto = grpc.load('spec/protos/repeater.proto');
       repeaterClient = new repeaterProto.testapp.repeater.RepeaterService('localhost:3000',
@@ -168,7 +171,6 @@ describe('condor framework', () => {
 
       repeaterClient.simple(message, (error) => {
         expect(error).toBeNull();
-        condor.stop();
         done();
       });
     });
