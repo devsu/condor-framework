@@ -26,13 +26,14 @@ class Greeter {
   }
 }
 
-const logger = (call) => {
-  console.log('Request:', call.request);
+const logger = (context, next) => {
+  console.log('Request:', context.request);
+  return next();
 };
 
 const app = new Condor()
   .addService('./protos/greeter.proto', 'myapp.Greeter', new Greeter())
-  .addMiddleware(logger)
+  .use(logger)
   .start();
 ```
 
