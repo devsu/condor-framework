@@ -45,8 +45,14 @@ npm install --save condor-framework
 
 ## Links
 
-[Website](http://condorjs.com)
-[Documentation](http://condorjs.com/documentation)
+- [Website](http://condorjs.com)
+- [Documentation](http://condorjs.com/documentation)
+
+## Related Modules and Middleware
+
+- [Condor-Auth](https://github.com/devsu/condor-auth): An authorization middleware for Condor. Designed to work with JWTs out of the box, but you can plug in any other strategy.
+- [Condor-Mongoose](https://github.com/devsu/condor-mongoose): Utils to accelerate the development of GRPC services using **condor** and [mongoose](http://mongoosejs.com/).
+- More are coming soon... ;)
 
 ## License and Credits
 
