@@ -5,8 +5,6 @@ layout: default
 
 # Quick start
 
-Before start, we recommend you to get familiar with [GRPC](http://www.grpc.io/).
-
 ### 1. Create your app
 
 ```bash
