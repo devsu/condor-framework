@@ -1,9 +1,9 @@
 ---
-title: Middleware
+title: Add your own middleware
 layout: default
 ---
 
-# Middleware
+# Add your own middleware
 
 You can add custom middleware methods, that will be executed before a request is served. 
 

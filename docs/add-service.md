@@ -25,11 +25,7 @@ message Greeting {
 }
 
 service Greeter {
-  rpc sayHello (Person) returns (Greeting) { }
-}
-
-service Person {
-  rpc addPerson (Person) returns (Person) { }
+  rpc SayHello (Person) returns (Greeting) { }
 }
 ```
 
@@ -45,22 +41,6 @@ should look like `myapp.Greeter`.
 Is a class or an object containing the implementation of all method of the corresponding service 
 inside the `.proto` file. 
 
-An object implementation of `Greeter Service` would look like this:
-
-```js
-const Condor = require('condor-framework');
- 
-const greeter = {
-  sayHello: (call) => {
-    return {'greeting': `Hello ${call.request.name}`};
-  }
-}
-
-const app = new Condor()
-  .addService('./protos/greeter.proto', 'myapp.Greeter', greeter)
-  .start();
-```
-
 A class implementation of `Greeter Service` would look like this:
 
 ```js
@@ -74,6 +54,22 @@ class Greeter {
 
 const app = new Condor()
   .addService('./protos/greeter.proto', 'myapp.Greeter', new Greeter())
+  .start();
+```
+
+An object implementation of `Greeter Service` would look like this:
+
+```js
+const Condor = require('condor-framework');
+ 
+const greeter = {
+  sayHello: (call) => {
+    return {'greeting': `Hello ${call.request.name}`};
+  }
+};
+
+const app = new Condor()
+  .addService('./protos/greeter.proto', 'myapp.Greeter', greeter)
   .start();
 ```
 

@@ -5,7 +5,9 @@ Minimalist, fast framework for building GRPC services in Node JS. It's like **ex
 [![Build Status](https://travis-ci.org/devsu/condor-framework.svg?branch=master)](https://travis-ci.org/devsu/condor-framework)
 [![Coverage Status](https://coveralls.io/repos/github/devsu/condor-framework/badge.svg?branch=master)](https://coveralls.io/github/devsu/condor-framework?branch=master)
 
-**Status**: Alpha.
+## Status
+
+Condor is working, but it's in *ALPHA* stage. We're using it to build a large system that will be in production soon.
 
 ## Highlights
 
@@ -50,10 +52,7 @@ npm install --save condor-framework
 
 ## Related Modules and Middleware
 
-- [Condor-JWT](https://github.com/devsu/condor-jwt): An authentication middleware for Condor using JSON Web Tokens (JWTs).
-- [Condor-Authorize](https://github.com/devsu/condor-authorize): An authorization middleware for Condor.
-- [Condor-Mongoose](https://github.com/devsu/condor-mongoose): Utils to accelerate the development of GRPC services using **condor** and [mongoose](http://mongoosejs.com/).
-- More are coming soon... ;)
+See the documentation for [related modules and middleware](http://condorjs.com/related-modules-and-middleware).
 
 ## License and Credits
 

@@ -26,3 +26,5 @@ All the options are not required. Their default values are:
 | rootCert   | Path to the root cert file   |         |
 | certChain  | Path to the cert chain file  |         |
 | privateKey | Path to the private key file |         |
+
+Next: [Related modules and middleware](related-modules-and-middleware.md)

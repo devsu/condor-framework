@@ -100,9 +100,7 @@ That's all. You have created your GRPC service in node js with middleware suppor
 
 ### Next steps
 
-- Take a look at [condor-auth](https://github.com/devsu/condor-auth). It's a pluggable authorization middleware.
-- Take a look at [condor-mongoose](https://github.com/devsu/condor-mongoose) if you want to create GRPC services in node with a mongo backend.
-- Dive into the next pages to understand how to implement services and write your own middleware and error handlers.
-
+- You can take a look at the ready to use [middleware modules](related-modules-and-middleware) 
+- Or dive into the next pages to understand how to implement services and write your own middleware and error handlers.
 
 Next: [Add Service](add-service)

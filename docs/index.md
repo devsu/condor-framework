@@ -3,18 +3,6 @@ title: Condor GRPC Framework
 layout: home
 ---
 
-# Condor: A GRPC Framework for node
-
-Minimalist, fast framework for building GRPC services in Node JS. It's like **express** for **GRPC**.
-
-## Highlights
-
-- Built on top of Google's [grpc](https://www.npmjs.com/package/grpc) module
-- Focus on simplicity and high performance
-- Fully covered by tests
-- Promise based, which means **no callbacks**
-- Written using, and design for **ES6**
-
 ## Easy to use
 
 ```js
@@ -37,11 +25,13 @@ const app = new Condor()
   .start();
 ```
 
-## Features
+## Highlights
 
-- [Middleware](middleware)
-- [Error Handlers](error-handlers)
-- [SSL/TLS Support](ssl-tls)
+- Built on top of Google's [grpc](https://www.npmjs.com/package/grpc) module
+- Focus on simplicity and high performance
+- Fully covered by tests
+- Promise based, which means **no callbacks**
+- Written using, and design for **ES6**
 
 ## Installation
 
@@ -49,4 +39,10 @@ const app = new Condor()
 npm install --save condor-framework
 ``` 
 
-Next: [Quick Start](quick-start)
+## Status
+
+Condor is working, but it's in *ALPHA* stage. We're using it to build a large system that will be in production soon.
+
+## Links
+[Documentation / Quick Start](quick-start)
+[Github Repo](https://github.com/devsu/condor-framework)
