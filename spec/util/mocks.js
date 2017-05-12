@@ -65,7 +65,7 @@ class ErrorHandlerMock {
 module.exports = class Mocks {
   static getServer() {
     return {
-      'addProtoService': Spy.create('addProtoService'),
+      'addService': Spy.create('addService'),
       'bind': Spy.create('bind'),
       'start': Spy.create('start'),
       'started': true,
