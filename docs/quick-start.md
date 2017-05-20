@@ -19,7 +19,7 @@ npm init
 npm i --save condor-framework
 ```
 
-### 3. If you don't have it, create your proto file. (e.g. `protos/greeter.proto`)
+### 3. If you don't have it, create your proto file. (e.g. `protos/myapp/greeter.proto`)
 
 ```proto
 syntax = "proto3";
@@ -50,8 +50,10 @@ class Greeter {
   }
 }
 
+const rootProtoPath = './protos';
+
 const app = new Condor()
-  .addService('./protos/greeter.proto', 'myapp.Greeter', new Greeter())
+  .add('myapp/greeter.proto', 'Greeter', new Greeter())
   .start();
 ```
 
@@ -72,7 +74,7 @@ node index.js
   - On your client start script (e.g. `client.js`) add the following lines:
   
     ```js
-    var greeterProto = grpc.load('./protos/greeter.proto');
+    var greeterProto = grpc.load('./protos/myapp/greeter.proto');
     var client = new greeterProto.myapp.Greeter('127.0.0.1:3000', grpc.credentials.createInsecure());
     
     function sayHello(person) {
@@ -101,4 +103,4 @@ That's all. You have created your GRPC service in node js with middleware suppor
 - You can take a look at the ready to use [middleware modules](related-modules-and-middleware) 
 - Or dive into the next pages to understand how to implement services and write your own middleware and error handlers.
 
-Next: [Add Service](add-service)
+Next: [Adding Services](adding-services)

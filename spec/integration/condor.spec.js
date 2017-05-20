@@ -12,10 +12,11 @@ describe('condor framework', () => {
     const options = {
       'host': '127.0.0.1',
       'port': '9999',
+      'rootProtoPath': 'spec/protos',
     };
     condor = new Condor(options)
-      .addService('spec/protos/repeater.proto', 'testapp.repeater.RepeaterService', new Repeater())
-      .addService('spec/protos/car.proto', 'transport.land.CarService', new Car())
+      .add('testapp/repeater.proto', 'RepeaterService', new Repeater())
+      .add('transport/land/car.proto', 'CarService', new Car())
       .use('testapp.repeater', (context, next) => {
         count++;
         return next();
@@ -35,11 +36,11 @@ describe('condor framework', () => {
       .start();
 
     // start client
-    const repeaterProto = grpc.load('spec/protos/repeater.proto');
+    const repeaterProto = grpc.load('spec/protos/testapp/repeater.proto');
     repeaterClient = new repeaterProto.testapp.repeater.RepeaterService('127.0.0.1:9999',
       grpc.credentials.createInsecure());
 
-    const carProto = grpc.load('spec/protos/car.proto');
+    const carProto = grpc.load('spec/protos/transport/land/car.proto');
     carClient = new carProto.transport.land.CarService('127.0.0.1:9999',
       grpc.credentials.createInsecure());
   });
@@ -159,13 +160,13 @@ describe('condor framework', () => {
       const options = {
         'certChain': 'spec/ssl/server.crt',
         'privateKey': 'spec/ssl/server.key',
+        'rootProtoPath': 'spec/protos',
       };
       condor = new Condor(options)
-        .addService('spec/protos/repeater.proto', 'testapp.repeater.RepeaterService',
-          new Repeater())
+        .add('testapp/repeater.proto', 'RepeaterService', new Repeater())
         .start();
       const sslCreds = grpc.credentials.createSsl(fs.readFileSync('spec/ssl/server.crt'));
-      const repeaterProto = grpc.load('spec/protos/repeater.proto');
+      const repeaterProto = grpc.load('spec/protos/testapp/repeater.proto');
       repeaterClient = new repeaterProto.testapp.repeater.RepeaterService('localhost:3000',
         sslCreds);
 

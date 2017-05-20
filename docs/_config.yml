@@ -7,7 +7,7 @@ npm: https://www.npmjs.com/package/condor-framework
 links:
   - Documentation: documentation
   - Quick Start: quick-start
-  - Add Service: add-service
+  - Adding Services: adding-services
   - GRPC Requests: grpc-requests
   - Middleware: middleware
   - Error Handlers: error-handlers

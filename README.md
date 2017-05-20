@@ -33,11 +33,15 @@ const logger = (context, next) => {
   return next();
 };
 
-const app = new Condor()
-  .addService('./protos/greeter.proto', 'myapp.Greeter', new Greeter())
+const rootProtoPath = './protos';
+
+const app = new Condor({rootProtoPath})
+  .add('myapp/greeter.proto', 'GreeterService', new Greeter())
   .use(logger)
   .start();
 ```
+
+For this to work, you should have your proto file at `./protos/myapp/greeter.proto`.
 
 ## Installation
 
