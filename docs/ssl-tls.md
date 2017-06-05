@@ -11,7 +11,7 @@ To enable SSL you just have to pass the host and the paths to the certificate fi
  
 ```js
 const options= {
-  'host': 'myservice.example.com',      // required
+  'uri': 'myservice.example.com:50051', // required
   'rootCert': '/path/to/root/cert',     // optional
   'certChain': '/path/to/cert/chain',   // required
   'privateKey': '/path/to/private/key', // required

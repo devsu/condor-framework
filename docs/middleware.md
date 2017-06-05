@@ -150,17 +150,7 @@ Middleware always receive two parameters:
 
 ### Context
 
-The `context` parameter is an object with the following properties:
-
-- `call`: Contains the grpc Call object.
-- `request`: Shortcut to `call.request`, data sent from the client.
-- `metadata`: Shortcut to `call.metadata`, metadata sent from the client.
-- `send`: It will send a response to the user, calling this function will complete the flow an 
-will return to the user passing the result to every middleware called before the response was 
-sent, the result will be on the `next().then`. It receives a `Response` object with two optional
-parameters. When the first parameter is not a `Response` it will take any object passed as the 
-response object except for an instance of `Metadata`. The second parameters will be the metadata 
-that will be sent to the client.
+The properties and methods provided by the [context](context) object are documented in the next pages.
 
 ### Next
 

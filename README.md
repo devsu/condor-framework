@@ -23,19 +23,22 @@ Condor is working, but it's in *ALPHA* stage. We're using it to build a large sy
 const Condor = require('condor-framework');
 
 class Greeter {
-  sayHello(call) {
-    return { 'greeting': 'Hello ' + call.request.name };
+  sayHello(ctx) {
+    return { 'greeting': 'Hello ' + ctx.request.name };
   }
 }
 
-const logger = (context, next) => {
-  console.log('Request:', context.request);
+const logger = (ctx, next) => {
+  console.log('Request:', ctx.request);
   return next();
 };
 
-const rootProtoPath = './protos';
+const options = {
+  'uri': '0.0.0.0:50051',
+  'rootProtoPath': './protos',
+};
 
-const app = new Condor({rootProtoPath})
+const app = new Condor(options)
   .add('myapp/greeter.proto', 'GreeterService', new Greeter())
   .use(logger)
   .start();

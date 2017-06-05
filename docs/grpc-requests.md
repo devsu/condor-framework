@@ -33,8 +33,8 @@ And class implementation should look like this:
 
 ```js
 class RepeaterService {
-  simple(call) {
-    return this._buildResponse(call.request.message);
+  simple(ctx) {
+    return this._buildResponse(ctx.request.message);
   }
  
   _buildResponse(message) {
@@ -69,23 +69,23 @@ And class implementation should look like this:
 
 ```js
 class RepeaterService {
-  streamToServer(stream) {
+  streamToServer(ctx) {
     let messages = '';
     return new Promise((resolve) => {
-      stream.on('data', (data) => {
+      ctx.on('data', (data) => {
         messages = messages.concat(data.message);
       });
-      stream.on('end', () => {
+      ctx.on('end', () => {
         resolve(this._buildResponse(messages));
       });
     });
   }
 
-  streamToClient(stream) {
-    const message = stream.request.message;
-    stream.write(this._buildResponse(message));
-    stream.write(this._buildResponse(message));
-    stream.end();
+  streamToClient(ctx) {
+    const message = ctx.request.message;
+    ctx.write(this._buildResponse(message));
+    ctx.write(this._buildResponse(message));
+    ctx.end();
   }
  
   _buildResponse(message) {
@@ -118,12 +118,12 @@ And class implementation should look like this:
 
 ```js
 class RepeaterService {
-  bidirectionalStream(stream) {
-    stream.on('data', (data) => {
-      stream.write(this._buildResponse(data.message));
+  bidirectionalStream(ctx) {
+    ctx.on('data', (data) => {
+      ctx.write(this._buildResponse(data.message));
     });
-    stream.on('end', () => {
-      stream.end();
+    ctx.on('end', () => {
+      ctx.end();
     });
   }
 
@@ -132,5 +132,7 @@ class RepeaterService {
   }
 }
 ```
+
+The properties and methods provided by the [context](context) object are documented in the next pages.
 
 Next: [Middleware](middleware)

@@ -110,7 +110,7 @@ The error parameter as his name describe its the error that caused the flow to b
 
 ### Context 
 
-See [Middleware: Context](middleware#context)
+The properties and methods provided by the [context](context) object are documented in the next pages.
 
 ### Next
 
@@ -122,4 +122,4 @@ execute the next step on the flow.
 **Note:** To return the result of `next` function is important to keep the order of the error handlers.
 Not writing the `next` function on a return statement can cause an undesirable execution order. 
 
-Next: [SSL/TLS Support](ssl-tls)
+Next: [Context](context)

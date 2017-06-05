@@ -45,14 +45,19 @@ service Greeter {
 const Condor = require('condor-framework');
  
 class Greeter {
-  sayHello(call) {
-    return { 'greeting': `Hello ${call.request.name}`};
+  sayHello(ctx) {
+    return { 'greeting': `Hello ${ctx.request.name}`};
   }
 }
 
+const options = {
+  'uri': '0.0.0.0:50051',
+  'rootProtoPath': './protos',
+};
+
 const rootProtoPath = './protos';
 
-const app = new Condor()
+const app = new Condor(options)
   .add('myapp/greeter.proto', 'Greeter', new Greeter())
   .start();
 ```
@@ -75,7 +80,7 @@ node index.js
   
     ```js
     var greeterProto = grpc.load('./protos/myapp/greeter.proto');
-    var client = new greeterProto.myapp.Greeter('127.0.0.1:3000', grpc.credentials.createInsecure());
+    var client = new greeterProto.myapp.Greeter('127.0.0.1:50051', grpc.credentials.createInsecure());
     
     function sayHello(person) {
       client.sayHello(person, (error, greeting) => {
