@@ -34,6 +34,4 @@ layout: home
 
 Condor is working, but it's in *ALPHA* stage. We're using it to build a large system that will be in production soon.
 
-### Next
-
-[Quick Start](quick-start)
+### [Quick Start](quick-start)

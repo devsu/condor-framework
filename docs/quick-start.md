@@ -55,8 +55,6 @@ const options = {
   'rootProtoPath': './protos',
 };
 
-const rootProtoPath = './protos';
-
 const app = new Condor(options)
   .add('myapp/greeter.proto', 'Greeter', new Greeter())
   .start();
