@@ -64,16 +64,20 @@ class ErrorHandlerMock {
 
 module.exports = class Mocks {
   static getServer() {
-    return {
+    const server = {
       'addService': Spy.create('addService'),
       'bind': Spy.create('bind'),
-      'start': Spy.create('start'),
+      'start': Spy.create('start').and.callFake(() => {
+        return server;
+      }),
       'started': true,
       'tryShutdown': Spy.create('tryShutdown').and.callFake((callback) => {
         callback();
       }),
       'forceShutdown': Spy.create('forceShutdown'),
+      'forceStop': Spy.create('forceStop'),
     };
+    return server;
   }
 
   static getGrpc(serverMock) {

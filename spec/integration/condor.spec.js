@@ -158,6 +158,7 @@ describe('condor framework', () => {
     it('should use ssl credentials between client/server communication', (done) => {
       condor.stop();
       const options = {
+        'uri': '0.0.0.0:50051',
         'certChain': 'spec/ssl/server.crt',
         'privateKey': 'spec/ssl/server.key',
         'rootProtoPath': 'spec/protos',
@@ -167,7 +168,7 @@ describe('condor framework', () => {
         .start();
       const sslCreds = grpc.credentials.createSsl(fs.readFileSync('spec/ssl/server.crt'));
       const repeaterProto = grpc.load('spec/protos/testapp/repeater.proto');
-      repeaterClient = new repeaterProto.testapp.repeater.RepeaterService('localhost:3000',
+      repeaterClient = new repeaterProto.testapp.repeater.RepeaterService('localhost:50051',
         sslCreds);
 
       repeaterClient.simple(message, (error) => {
