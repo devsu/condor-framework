@@ -25,6 +25,11 @@ describe('condor framework', () => {
         count++;
         return next();
       })
+      .use((context, next) => {
+        // not returning next(). To test fix for
+        // https://github.com/devsu/condor-framework/issues/40
+        next();
+      })
       .addErrorHandler((error, context, next) => {
         countErrors++;
         return next(error);
