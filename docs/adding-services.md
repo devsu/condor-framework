@@ -41,7 +41,7 @@ You can use classes instances, or simple objects. A class implementation of `Gre
 ```js
 class Greeter {
   sayHello(ctx) {
-    return { 'greeting': `Hello ${ctx.request.name}`};
+    return { 'greeting': `Hello ${ctx.req.name}`};
   }
 }
 const greeter = new Greeter();
@@ -52,7 +52,7 @@ An object implementation of `Greeter Service` would look like this:
 ```js
 const greeter = {
   sayHello: (ctx) => {
-    return {'greeting': `Hello ${ctx.request.name}`};
+    return {'greeting': `Hello ${ctx.req.name}`};
   }
 };
 ```

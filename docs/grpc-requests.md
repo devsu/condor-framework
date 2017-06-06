@@ -34,7 +34,7 @@ And class implementation should look like this:
 ```js
 class RepeaterService {
   simple(ctx) {
-    return this._buildResponse(ctx.request.message);
+    return this._buildResponse(ctx.req.message);
   }
  
   _buildResponse(message) {
@@ -82,7 +82,7 @@ class RepeaterService {
   }
 
   streamToClient(ctx) {
-    const message = ctx.request.message;
+    const message = ctx.req.message;
     ctx.write(this._buildResponse(message));
     ctx.write(this._buildResponse(message));
     ctx.end();

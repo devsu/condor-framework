@@ -46,7 +46,7 @@ const Condor = require('condor-framework');
  
 class Greeter {
   sayHello(ctx) {
-    return { 'greeting': `Hello ${ctx.request.name}`};
+    return { 'greeting': `Hello ${ctx.req.name}`};
   }
 }
 

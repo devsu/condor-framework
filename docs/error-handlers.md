@@ -14,9 +14,9 @@ The error handlers are run if an error is thrown, or a parameter is passed to th
 const app = new Condor();
 const scope = 'myapp';
 
-app.addErrorHandler(scope, (error, context, next) => {
+app.addErrorHandler(scope, (error, ctx, next) => {
   console.error('Something went wrong', error);
-  console.error('for the request', context.request);
+  console.error('for the request', ctx.req);
   return next(error);
 });
 ```
@@ -41,7 +41,7 @@ You can pass the error to all error handlers just passing the error parameter in
 `next` function and it will return the error to the client.
 
 ```js
-app.addErrorHandler((error, context, next) => {
+app.addErrorHandler((error, ctx, next) => {
   return next(error);
 });
 ```
@@ -52,7 +52,7 @@ You can modify the error that will be returned to the user from your error handl
 new error to the `next()` function or throwing a new error inside the error handler.
 
 ```js
-app.addErrorHandler((error, context, next) => {
+app.addErrorHandler((error, ctx, next) => {
   const newError = new Error();
   newError.code = grpc.status.PERMISSION_DENIED;
   newError.details = 'You do not have enough permissions';
@@ -72,8 +72,8 @@ Like the middleware, the error handler can send a response to the user using `co
 function.
  
 ```js
-app.addErrorHandler((error, context) => {
-  context.send({'message': 'There was an application error, please come back later'});
+app.addErrorHandler((error, ctx) => {
+  ctx.send({'message': 'There was an application error, please come back later'});
 });
 ```
 
@@ -84,7 +84,7 @@ implementation caused just calling the `next()` function without any error. It w
 execution with the next step of the flow.
 
 ```js
-app.addErrorHandler((error, context, next) => {
+app.addErrorHandler((error, ctx, next) => {
   return next();
 });
 ```

@@ -9,12 +9,12 @@ layout: home
 
 <span style="color: #008000; font-weight: bold">class</span> Greeter {
   sayHello(ctx) {
-    <span style="color: #008000; font-weight: bold">return</span> { <span style="color: #BA2121">&#39;greeting&#39;</span><span style="color: #666666">:</span> <span style="color: #BA2121">&#39;Hello &#39;</span> <span style="color: #666666">+</span> ctx.request.name };
+    <span style="color: #008000; font-weight: bold">return</span> { <span style="color: #BA2121">&#39;greeting&#39;</span><span style="color: #666666">:</span> <span style="color: #BA2121">&#39;Hello &#39;</span> <span style="color: #666666">+</span> ctx.req.name };
   }
 }
 
 <span style="color: #008000; font-weight: bold">const</span> logger <span style="color: #666666">=</span> (ctx, next) <span style="color: #666666">=&gt;</span> {
-  console.log(<span style="color: #BA2121">&#39;Request:&#39;</span>, ctx.request);
+  console.log(<span style="color: #BA2121">&#39;Request:&#39;</span>, ctx.req);
   <span style="color: #008000; font-weight: bold">return</span> next();
 };
 

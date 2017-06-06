@@ -11,8 +11,8 @@ You can add custom middleware methods, that will be executed before a request is
 const app = new Condor();
 const scope = 'myapp';
 
-app.use(scope, (context, next) => {
-  console.log('Request:', context.request);
+app.use(scope, (ctx, next) => {
+  console.log('Request:', ctx.req);
   return next();
 });
 ```
@@ -28,8 +28,8 @@ app.use(scope, (context, next) => {
 When a scope argument is not provided the middleware is executed for every request.
 
 ```js
-app.use((context, next) => {
-  console.log('Request:', context.request);
+app.use((ctx, next) => {
+  console.log('Request:', ctx.req);
   return next();
 });
 ```
@@ -37,9 +37,9 @@ app.use((context, next) => {
 Scope can be a package name. 
 
 ```js
-app.use('myapp', (context, next) => {
+app.use('myapp', (ctx, next) => {
   // Will execute for every request to the services in the `myapp` package
-  console.log('Request:', context.request);
+  console.log('Request:', ctx.req);
   return next();
 });
 ```
@@ -47,9 +47,9 @@ app.use('myapp', (context, next) => {
 Or a service name. 
 
 ```js
-app.use('myapp.Greeter', (context, next) => {
+app.use('myapp.Greeter', (ctx, next) => {
   // will execute for every request to any method in myapp.Greeter
-  console.log('Request:', context.request);
+  console.log('Request:', ctx.req);
   return next();
 });
 ```
@@ -57,9 +57,9 @@ app.use('myapp.Greeter', (context, next) => {
 Or a specific method name.
 
 ```js
-app.use('myapp.Greeter.sayHello', (context, next) => {
+app.use('myapp.Greeter.sayHello', (ctx, next) => {
   // will execute for every request to the myapp.Greeter.sayHello method
-  console.log('Request:', context.request);
+  console.log('Request:', ctx.req);
   return next();
 });
 ```
@@ -75,9 +75,9 @@ If the middleware method doesn't perform an operation that changes or generates 
  return a call to `next` to continue with the normal flow.
 
 ```js
-app.use(scope, (context, next) => {
+app.use(scope, (ctx, next) => {
   // Log the request, and continue
-  console.log('Request:', context.request);
+  console.log('Request:', ctx.req);
   return next();
 });
 ```
@@ -86,9 +86,9 @@ You can also do make changes after a response using the `next.then`, the `next` 
 returns a promise so `.catch` is also available when an error is not handled.
 
 ```js
-app.use(scope, (context, next) => {
+app.use(scope, (ctx, next) => {
   // Log the request, response and continue
-  console.log('Request:', context.request);
+  console.log('Request:', ctx.req);
   return next().then((result) => {
     console.log('Response:', result);
   }).catch((error) => {
@@ -103,19 +103,19 @@ To send a response to the user use `context.send` method with an object, `next` 
  need to be called.
 
 ```js
-app.use(scope, (context) => {
+app.use(scope, (ctx) => {
   // Respond to the user, next middleware and implementation are not executed
-  context.send({'message': 'any value'});
+  ctx.send({'message': 'any value'});
 });
 ```
 
-You can change the response using `next.then` and use `context.send` to overwrite the response
+You can change the response using `next.then` and use `ctx.send` to overwrite the response
 after it was sent.
 
 ```js
-app.use(scope, (context, next) => {
+app.use(scope, (ctx, next) => {
   return next().then(() => {
-    context.send({'message': 'another value'});
+    ctx.send({'message': 'another value'});
   });
 });
 ```
@@ -134,7 +134,7 @@ app.use(() => {
   throw error;
 });
 
-app.use((context, next) => {
+app.use((ctx, next) => {
   const error = new Error('Error message');
   error.code = grpc.status.PERMISSION_DENIED;
   return next(error);

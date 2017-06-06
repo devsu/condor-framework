@@ -1,35 +1,35 @@
 const Promise = require('bluebird');
 
 module.exports = class {
-  simple(call) {
-    return this._buildResponse(call.request.message);
+  simple(ctx) {
+    return this._buildResponse(ctx.req.message);
   }
 
-  streamToServer(stream) {
+  streamToServer(ctx) {
     let messages = '';
     return new Promise((resolve) => {
-      stream.on('data', (data) => {
+      ctx.on('data', (data) => {
         messages = messages.concat(data.message);
       });
-      stream.on('end', () => {
+      ctx.on('end', () => {
         resolve(this._buildResponse(messages));
       });
     });
   }
 
-  streamToClient(stream) {
-    const message = stream.request.message;
-    stream.write(this._buildResponse(message));
-    stream.write(this._buildResponse(message));
-    stream.end();
+  streamToClient(ctx) {
+    const message = ctx.req.message;
+    ctx.write(this._buildResponse(message));
+    ctx.write(this._buildResponse(message));
+    ctx.end();
   }
 
-  bidirectionalStream(stream) {
-    stream.on('data', (data) => {
-      stream.write(this._buildResponse(data.message));
+  bidirectionalStream(ctx) {
+    ctx.on('data', (data) => {
+      ctx.write(this._buildResponse(data.message));
     });
-    stream.on('end', () => {
-      stream.end();
+    ctx.on('end', () => {
+      ctx.end();
     });
   }
 

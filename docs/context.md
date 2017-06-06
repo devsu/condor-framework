@@ -5,8 +5,8 @@ The `context` object is passed to the service implementations, middleware and er
 It contains the following properties and methods:
 
 - `call`: The actual call object.
-- `request`: A shortcut to `call.request`.
-- `metadata`: A shortcut to `call.metadata`.
+- `req` and `request`: Shortcuts to `call.request`.
+- `meta` and `metadata`: Shortcuts to `call.metadata`.
 - `properties`: An object with the call properties, like: `methodName`, `methodFullName`, `serviceName`, `serviceFullName`.
 - `write()`: A shortcut to `call.write()`.
 - `on()`: A shortcut to `call.on()`.
