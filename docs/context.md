@@ -7,6 +7,7 @@ It contains the following properties and methods:
 - `call`: The actual call object.
 - `req` and `request`: Shortcuts to `call.request`.
 - `meta` and `metadata`: Shortcuts to `call.metadata`.
+- `status`: A shortcut to `grpc.status`. It's an object with the grpc status codes.
 - `properties`: An object with the call properties, like: `methodName`, `methodFullName`, `serviceName`, `serviceFullName`.
 - `write()`: A shortcut to `call.write()`.
 - `on()`: A shortcut to `call.on()`.
