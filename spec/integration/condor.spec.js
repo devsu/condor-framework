@@ -163,7 +163,7 @@ describe('condor framework', () => {
     it('should use ssl credentials between client/server communication', (done) => {
       condor.stop();
       const options = {
-        'uri': '0.0.0.0:50051',
+        'listen': '0.0.0.0:50051',
         'certChain': 'spec/ssl/server.crt',
         'privateKey': 'spec/ssl/server.key',
         'rootProtoPath': 'spec/protos',

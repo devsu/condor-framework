@@ -1,6 +1,6 @@
 {
   "name": "condor-framework",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Framework for building GRPC services in Node JS.",
   "main": "index.js",
   "scripts": {

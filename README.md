@@ -34,7 +34,7 @@ const logger = (ctx, next) => {
 };
 
 const options = {
-  'uri': '0.0.0.0:50051',
+  'listen': '0.0.0.0:50051',
   'rootProtoPath': './protos',
 };
 

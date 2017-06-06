@@ -19,7 +19,7 @@ layout: home
 };
 
 <span style="color: #008000; font-weight: bold">const</span> options <span style="color: #666666">=</span> {
-  <span style="color: #BA2121">&#39;uri&#39;</span><span style="color: #666666">:</span> <span style="color: #BA2121">&#39;0.0.0.0:50051&#39;</span>,
+  <span style="color: #BA2121">&#39;listen&#39;</span><span style="color: #666666">:</span> <span style="color: #BA2121">&#39;0.0.0.0:50051&#39;</span>,
   <span style="color: #BA2121">&#39;rootProtoPath&#39;</span><span style="color: #666666">:</span> <span style="color: #BA2121">&#39;./protos&#39;</span>,
 };
 
