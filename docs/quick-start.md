@@ -35,7 +35,7 @@ message Greeting {
 }
 
 service Greeter {
-  rpc sayHello (Person) returns (Greeting) { }
+  rpc SayHello (Person) returns (Greeting) { }
 }
 ```
 
