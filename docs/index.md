@@ -3,6 +3,8 @@ title: Condor GRPC Framework
 layout: home
 ---
 
+**This project is unmaintained (see below)**
+
 ### Easy to use
 
 <!-- HTML generated using hilite.me --><div style="background: #f8f8f8; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%"><span style="color: #008000; font-weight: bold">const</span> Condor <span style="color: #666666">=</span> require(<span style="color: #BA2121">&#39;condor-framework&#39;</span>);
@@ -32,6 +34,8 @@ layout: home
 
 ### Status
 
-Condor is working, but it's in *ALPHA* stage. We're using it to build a large system that will be in production soon.
+~Condor is working, but it's in *ALPHA* stage. We're using it to build a large system that will be in production soon.~
+
+**Unmaintained** We stopped using GRPC (probably we'll take a look again in the future, when its whole ecosystem gets more mature).
 
 ### [Quick Start](quick-start)
