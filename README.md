@@ -7,7 +7,7 @@ Minimalist, fast framework for building GRPC services in Node JS. It's like **ex
 
 ## Status
 
-Condor is working, but it's in *ALPHA* stage. We're using it to build a large system that will be in production soon.
+~Condor is working, but it's in *ALPHA* stage. We're using it to build a large system that will be in production soon.~ **Unmaintained** We stopped using GRPC (probably we'll take a look again in the future, when its whole ecosystem gets more mature).
 
 ## Highlights
 
